@@ -1,13 +1,17 @@
 # README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+`yarn install` when you first checkout the project
+`rails s`
+`bin/webpack-dev-server` for live reloading of react files.
 
 * Ruby version
 
+2.6
+
 * System dependencies
+Rails 6
+React
+
+* Add new js packages with `yarn add packagename`
 
 * Configuration
 
@@ -21,4 +25,5 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+
+
