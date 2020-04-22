@@ -5,4 +5,9 @@ class UserTest < ActiveSupport::TestCase
     user = User.create(name: "moonchild", password: "fakepassword", email: "moonchild@example.com")
     assert_equal(true, user.persisted?)
   end
+
+  test "invalid email" do
+    user = User.create(name: "moonchild", password: "fakepassword", email: "moonexample.com")
+    assert_equal(false, user.persisted?)
+  end
 end
