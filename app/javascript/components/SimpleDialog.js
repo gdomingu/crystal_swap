@@ -1,6 +1,7 @@
 import React from "react";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
 
 const SimpleDialog = (props) => {
   const { onClose, selectedValue, open } = props;
@@ -16,6 +17,7 @@ const SimpleDialog = (props) => {
       open={open}
     >
       <DialogTitle id="simple-dialog-title">{props.title}</DialogTitle>
+      <DialogContent>{props.children}</DialogContent>
     </Dialog>
   );
 };
