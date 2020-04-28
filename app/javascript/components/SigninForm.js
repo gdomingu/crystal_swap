@@ -23,26 +23,22 @@ const validationSchema = Yup.object({
   password: Yup.string("")
     .min(8, "Password must contain at least 8 characters")
     .required("Enter your password"),
-  password_confirmation: Yup.string("Enter your password")
-    .required("Confirm your password")
-    .oneOf([Yup.ref("password")], "Password does not match"),
 });
 
-const SignupForm = (props) => {
+const SigninForm = (props) => {
   const classes = useStyles();
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
-      password_confirmation: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
       actions.setSubmitting(true);
       AxiosHelper();
       axios
-        .post("/users", { user: values })
+        .post("/users/sign_in", { user: values })
         .then((resp) => {
           console.log(resp);
           props.handleSuccessfulAuth(resp.data);
@@ -95,35 +91,16 @@ const SignupForm = (props) => {
         onChange={change.bind(null, "password")}
         variant="outlined"
       />
-      <TextField
-        id="password_confirmation"
-        name="password_confirmation"
-        helperText={
-          formik.touched.password_confirmation
-            ? formik.errors.password_confirmation
-            : ""
-        }
-        error={
-          formik.touched.password_confirmation &&
-          Boolean(formik.errors.password_confirmation)
-        }
-        label="Confirm Password"
-        fullWidth
-        type="password"
-        value={formik.password_confirmation}
-        onChange={change.bind(null, "password_confirmation")}
-        variant="outlined"
-      />
       <Button
         variant="contained"
         color="primary"
         type="submit"
         disabled={!formik.isValid}
       >
-        Create
+        Login
       </Button>
     </form>
   );
 };
 
-export default SignupForm;
+export default SigninForm;

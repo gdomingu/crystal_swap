@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import SimpleDialog from "../components/SimpleDialog";
 import Grid from "@material-ui/core/Grid";
 import SignupForm from "../components/SignupForm";
+import SigninForm from "../components/SigninForm";
 import Button from "@material-ui/core/Button";
 
 const LoginSignup = (props) => {
   const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
+  const [dialogType, setDialogType] = useState("");
+  const handleClickOpen = (name) => {
+    setDialogType(name);
     setOpen(true);
   };
 
@@ -14,19 +17,34 @@ const LoginSignup = (props) => {
     setOpen(false);
   };
 
+  const dialogContent = () => {
+    if (dialogType == "login") {
+      return <SigninForm handleSuccessfulAuth={props.handleSuccessfulAuth} />;
+    }
+    return <SignupForm handleSuccessfulAuth={props.handleSuccessfulAuth} />;
+  };
+
   return (
     <Grid container spacing={2} justify="center">
       <Grid item>
-        <Button variant="contained" color="primary" onClick={handleClickOpen}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => handleClickOpen("login")}
+        >
           Login
         </Button>
       </Grid>
       <Grid item>
-        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => handleClickOpen("signup")}
+        >
           Sign Up
         </Button>
         <SimpleDialog open={open} onClose={handleClose} title="Create Account">
-          <SignupForm handleSuccessfulAuth={props.handleSuccessfulAuth} />
+          {dialogContent()}
         </SimpleDialog>
       </Grid>
     </Grid>
