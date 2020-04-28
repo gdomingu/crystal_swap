@@ -35,6 +35,11 @@ const LoginSignup = () => {
         <Button variant="contained" color="primary" onClick={handleClickOpen}>
           Login
         </Button>
+      </Grid>
+      <Grid item>
+        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+          Sign Up
+        </Button>
         <SimpleDialog open={open} onClose={handleClose} title="Create Account">
           <Formik
             initialValues={{
@@ -67,11 +72,6 @@ const LoginSignup = () => {
             {(props) => <SignupForm {...props} />}
           </Formik>
         </SimpleDialog>
-      </Grid>
-      <Grid item>
-        <Button variant="outlined" color="primary">
-          Sign Up
-        </Button>
       </Grid>
     </Grid>
   );
