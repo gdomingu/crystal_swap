@@ -8,7 +8,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import AxiosHelper from "../utils/AxiosHelper";
 
-const LoginSignup = () => {
+const LoginSignup = (props) => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -54,7 +54,8 @@ const LoginSignup = () => {
               axios
                 .post("/users", { user: values })
                 .then((resp) => {
-                  console.log("logged in!");
+                  console.log(resp);
+                  props.handleSuccessfulAuth(resp.data);
                 })
                 .catch((err) => {
                   if (err.response.data.errors["email"]) {

@@ -4,12 +4,11 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import Landing from '../landing/Landing'
+import App from './App'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Landing />,
+    <App />,
     document.body.appendChild(document.createElement('div')),
   )
 })
