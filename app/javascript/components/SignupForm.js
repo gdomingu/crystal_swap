@@ -14,12 +14,13 @@ const useStyles = makeStyles((theme) => ({
 const SignupForm = (props) => {
   const classes = useStyles();
   const {
-    values: { email, password, confirmPassword },
+    values: { email, password, password_confirmation },
     errors,
     touched,
     handleChange,
     isValid,
     setFieldTouched,
+    handleSubmit,
   } = props;
 
   const change = (name, e) => {
@@ -28,13 +29,7 @@ const SignupForm = (props) => {
     setFieldTouched(name, true, false);
   };
   return (
-    <form
-      className={classes.root}
-      autoComplete="off"
-      onSubmit={() => {
-        alert("submitted");
-      }}
-    >
+    <form className={classes.root} autoComplete="off" onSubmit={handleSubmit}>
       <TextField
         id="email"
         label="email"
@@ -59,15 +54,19 @@ const SignupForm = (props) => {
         variant="outlined"
       />
       <TextField
-        id="confirmPassword"
-        name="confirmPassword"
-        helperText={touched.confirmPassword ? errors.confirmPassword : ""}
-        error={touched.confirmPassword && Boolean(errors.confirmPassword)}
+        id="password_confirmation"
+        name="password_confirmation"
+        helperText={
+          touched.password_confirmation ? errors.password_confirmation : ""
+        }
+        error={
+          touched.password_confirmation && Boolean(errors.password_confirmation)
+        }
         label="Confirm Password"
         fullWidth
         type="password"
-        value={confirmPassword}
-        onChange={change.bind(null, "confirmPassword")}
+        value={password_confirmation}
+        onChange={change.bind(null, "password_confirmation")}
         variant="outlined"
       />
       <Button

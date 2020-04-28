@@ -5,6 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import SignupForm from "../components/SignupForm";
 import Button from "@material-ui/core/Button";
 import * as Yup from "yup";
+import axios from "axios";
+import AxiosHelper from "../utils/AxiosHelper";
 
 const LoginSignup = () => {
   const [open, setOpen] = useState(false);
@@ -22,7 +24,7 @@ const LoginSignup = () => {
     password: Yup.string("")
       .min(8, "Password must contain at least 8 characters")
       .required("Enter your password"),
-    confirmPassword: Yup.string("Enter your password")
+    password_confirmation: Yup.string("Enter your password")
       .required("Confirm your password")
       .oneOf([Yup.ref("password")], "Password does not match"),
   });
@@ -35,8 +37,32 @@ const LoginSignup = () => {
         </Button>
         <SimpleDialog open={open} onClose={handleClose} title="Create Account">
           <Formik
-            initialValues={{ email: "", password: "", confirmPassword: "" }}
+            initialValues={{
+              email: "",
+              password: "",
+              password_confirmation: "",
+            }}
             validationSchema={validationSchema}
+            onSubmit={(values, actions) => {
+              actions.setSubmitting(true);
+              AxiosHelper();
+              axios
+                .post("/users", { user: values })
+                .then((resp) => {
+                  console.log("logged in!");
+                })
+                .catch((err) => {
+                  if (err.response.data.errors["email"]) {
+                    actions.setFieldTouched("email", true, false);
+                    actions.setFieldError(
+                      "email",
+                      err.response.data.errors["email"][0],
+                      false
+                    );
+                  }
+                })
+                .finally(() => actions.setSubmitting(false));
+            }}
           >
             {(props) => <SignupForm {...props} />}
           </Formik>
