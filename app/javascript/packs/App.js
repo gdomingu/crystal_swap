@@ -38,6 +38,7 @@ const App = () => {
 
   useEffect(() => {
     loginStatus(setCurrentUser);
+    return () => {};
   }, []);
 
   return (
