@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2020_04_29_164307) do
     t.float "height_cm"
     t.float "length_cm"
     t.float "depth_cm"
-    t.integer "gifter_id"
+    t.integer "gifter_id", null: false
     t.integer "receiver_id"
     t.datetime "gifted_at"
     t.datetime "published_at"
