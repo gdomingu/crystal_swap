@@ -3,6 +3,7 @@ import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import LoginSignup from "./LoginSignup";
+import { UserContext } from "../context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Hero = () => {
+const Hero = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.heroContent}>
@@ -31,9 +32,19 @@ const Hero = () => {
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
           Find a new home for your beloved crystals
         </Typography>
-        <div className={classes.heroButtons}>
-          <LoginSignup />
-        </div>
+        <UserContext.Consumer>
+          {(value) => {
+            if (value === null) {
+              return (
+                <div className={classes.heroButtons}>
+                  <LoginSignup
+                    handleSuccessfulAuth={props.handleSuccessfulAuth}
+                  />
+                </div>
+              );
+            }
+          }}
+        </UserContext.Consumer>
       </Container>
     </div>
   );
