@@ -19,10 +19,13 @@ ActiveRecord::Schema.define(version: 2020_04_29_164307) do
     t.float "height_cm"
     t.float "length_cm"
     t.float "depth_cm"
-    t.integer "user_id", null: false
+    t.integer "gifter_id"
+    t.integer "receiver_id"
+    t.datetime "gifted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_gifts_on_user_id"
+    t.index ["gifter_id"], name: "index_gifts_on_gifter_id"
+    t.index ["receiver_id"], name: "index_gifts_on_receiver_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -38,5 +41,6 @@ ActiveRecord::Schema.define(version: 2020_04_29_164307) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "gifts", "users"
+  add_foreign_key "gifts", "users", column: "gifter_id"
+  add_foreign_key "gifts", "users", column: "receiver_id"
 end

@@ -7,7 +7,7 @@ one:
   height_cm: 1.5
   length_cm: 1.5
   depth_cm: 1.5
-  user: one
+  gifter: one
 
 two:
   name: MyString
@@ -16,4 +16,4 @@ two:
   height_cm: 1.5
   length_cm: 1.5
   depth_cm: 1.5
-  user: two
+  gifter: two

@@ -9,8 +9,8 @@
       name: gift.name,
       description: gift.description,
       gift_from: {
-        id: gift.user_id,
-        email: gift.user.email,
+        id: gift.gifter.id,
+        email: gift.gifter.email,
       }
     }.to_json
   end
