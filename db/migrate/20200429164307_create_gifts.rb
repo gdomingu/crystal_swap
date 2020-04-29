@@ -10,6 +10,8 @@ class CreateGifts < ActiveRecord::Migration[6.0]
       t.belongs_to :gifter, foreign_key: { to_table: 'users' }
       t.belongs_to :receiver, foreign_key: { to_table: 'users' }
       t.datetime :gifted_at
+      t.datetime :published_at
+      t.boolean :private, default: false, null: false
 
       t.timestamps
     end

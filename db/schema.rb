@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2020_04_29_164307) do
     t.integer "gifter_id"
     t.integer "receiver_id"
     t.datetime "gifted_at"
+    t.datetime "published_at"
+    t.boolean "private", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["gifter_id"], name: "index_gifts_on_gifter_id"
