@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -27,18 +27,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-let gifts = [];
 const fetchGifts = () => {
-  return axios.get("/gifts").then((resp) => {
-    console.log(resp);
-  });
+  return axios.get("/gifts");
 };
 
 const HomeGrid = () => {
   const classes = useStyles();
-
+  const [gifts, setGifts] = useState([]);
   useEffect(() => {
-    fetchGifts();
+    fetchGifts().then((resp) => {
+      setGifts(resp.data);
+    });
     return () => {};
   }, []);
 
@@ -46,7 +45,7 @@ const HomeGrid = () => {
     <Container className={classes.cardGrid} maxWidth="md">
       <Grid container spacing={4}>
         {gifts.map((gift) => (
-          <Grid item key={gift} xs={12} sm={6} md={4}>
+          <Grid item key={gift.id} xs={12} sm={6} md={4}>
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}
@@ -55,12 +54,9 @@ const HomeGrid = () => {
               />
               <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="h5" component="h2">
-                  Heading
+                  {gift.name}
                 </Typography>
-                <Typography>
-                  This is a media card. You can use this section to describe the
-                  content.
-                </Typography>
+                <Typography>{gift.description}</Typography>
               </CardContent>
               <CardActions>
                 <Button size="small" color="primary">
