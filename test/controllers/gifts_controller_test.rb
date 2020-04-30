@@ -7,7 +7,7 @@ class GiftsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:one)
     get('/gifts')
     assert_equal(
-      [GiftSerializer.new(gifts(:one))].to_json,
+      [Serializers::GiftSerializer.new(gifts(:one))].to_json,
       @response.body
     )
   end

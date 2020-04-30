@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class GiftSerializerTest < ActiveSupport::TestCase
-  test "it must have a name and a user" do
+  test "it correctly serializes" do
     gift = gifts(:one)
     expected = {
       id: gift.id,
@@ -11,7 +11,7 @@ class GiftSerializerTest < ActiveSupport::TestCase
         id: gift.gifter.id,
         email: gift.gifter.email,
       }
-    }.to_json
-    assert_equal(expected, GiftSerializer.new(gift).to_json)
+    }
+    assert_equal(expected, Serializers::GiftSerializer.new(gift).to_h)
   end
 end
