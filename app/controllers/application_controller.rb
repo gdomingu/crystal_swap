@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     @devise_current_user ||= warden.authenticate(:scope => :user)
   end
 
-  def current_user
-    devise_current_user || NullUser.new
-  end
+  # def current_user
+  #   devise_current_user || NullUser.new
+  # end
 end

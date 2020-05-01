@@ -4,6 +4,7 @@ import Landing from "../landing/Landing";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import AxiosHelper from "../utils/AxiosHelper";
+import Share from "../share/Share";
 
 const loginStatus = (setCurrentUser) => {
   axios
@@ -56,6 +57,7 @@ const App = () => {
               />
             )}
           />
+          <Route exact path="/share" component={Share} />
         </Switch>
       </BrowserRouter>
     </UserContext.Provider>
