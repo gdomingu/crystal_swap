@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Landing from "../landing/Landing";
+import Layout from "../landing/Layout";
+
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import AxiosHelper from "../utils/AxiosHelper";
@@ -45,20 +47,22 @@ const App = () => {
   return (
     <UserContext.Provider value={currentUser}>
       <BrowserRouter>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props) => (
-              <Landing
-                {...props}
-                handleSuccessfulAuth={handleSuccessfulAuth}
-                handleLogout={handleLogout}
-              />
-            )}
-          />
-          <Route exact path="/share" component={Share} />
-        </Switch>
+        <Layout>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <Landing
+                  {...props}
+                  handleSuccessfulAuth={handleSuccessfulAuth}
+                  handleLogout={handleLogout}
+                />
+              )}
+            />
+            <Route exact path="/share" component={Share} />
+          </Switch>
+        </Layout>
       </BrowserRouter>
     </UserContext.Provider>
   );
