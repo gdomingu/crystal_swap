@@ -7,6 +7,7 @@ import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import AxiosHelper from "../utils/AxiosHelper";
 import Share from "../share/Share";
+import { Redirect } from "react-router-dom";
 
 const loginStatus = (setCurrentUser) => {
   axios
@@ -35,6 +36,7 @@ const App = () => {
       .delete("/users/sign_out")
       .then(() => {
         setCurrentUser(null);
+        <Redirect to="/" />;
       })
       .catch((error) => console.log("api errors:", error));
   };
@@ -47,7 +49,7 @@ const App = () => {
   return (
     <UserContext.Provider value={currentUser}>
       <BrowserRouter>
-        <Layout>
+        <Layout handleLogout={handleLogout}>
           <Switch>
             <Route
               exact
@@ -56,7 +58,6 @@ const App = () => {
                 <Landing
                   {...props}
                   handleSuccessfulAuth={handleSuccessfulAuth}
-                  handleLogout={handleLogout}
                 />
               )}
             />

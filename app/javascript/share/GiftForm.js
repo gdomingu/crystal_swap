@@ -2,6 +2,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import Alert from "@material-ui/lab/Alert";
 import * as Yup from "yup";
 import axios from "axios";
 import AxiosHelper from "../utils/AxiosHelper";
@@ -38,7 +39,7 @@ const GiftForm = (props) => {
           console.log(resp);
         })
         .catch((err) => {
-          console.log(err);
+          actions.setFieldError("general", err.response.data.error);
         })
         .finally(() => actions.setSubmitting(false));
     },
@@ -55,6 +56,9 @@ const GiftForm = (props) => {
       autoComplete="off"
       onSubmit={formik.handleSubmit}
     >
+      {formik.errors.general && (
+        <Alert severity="error">{formik.errors.general}</Alert>
+      )}
       <TextField
         id="name"
         label="name"
