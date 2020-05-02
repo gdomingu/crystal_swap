@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -57,6 +57,10 @@ const SigninForm = (props) => {
     },
   });
 
+  useEffect(() => {
+    // Prevent state leak error
+    return () => {};
+  }, []);
   const change = (name, e) => {
     e.persist();
     formik.handleChange(e);

@@ -49,7 +49,10 @@ const App = () => {
   return (
     <UserContext.Provider value={currentUser}>
       <BrowserRouter>
-        <Layout handleLogout={handleLogout}>
+        <Layout
+          handleLogout={handleLogout}
+          handleSuccessfulAuth={handleSuccessfulAuth}
+        >
           <Switch>
             <Route
               exact
