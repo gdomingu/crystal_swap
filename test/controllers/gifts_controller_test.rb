@@ -16,14 +16,18 @@ class GiftsControllerTest < ActionDispatch::IntegrationTest
     payload = {
       gift: {
         name: "Smokey Quartz",
-        description: "This is a beautifl crystal"
+        description: "This is a beautiful crystal",
+        receiver_id: 2
       }
     }
     assert_changes "Gift.count", +1 do
-      post('/gifts', params: payload.to_json)
+      post('/gifts', params: payload)
     end
+    gift = Gift.last
+    assert_equal(users(:one), gift.gifter)
+    assert_nil(gift.receiver_id, "expected receiver_id to be nil")
     assert_equal(
-      [Serializers::GiftSerializer.new(Gift.last)].to_json,
+      Serializers::GiftSerializer.new(gift).to_h.to_json,
       @response.body
     )
   end

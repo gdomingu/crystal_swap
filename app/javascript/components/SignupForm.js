@@ -48,7 +48,7 @@ const SignupForm = (props) => {
           props.handleSuccessfulAuth(resp.data);
         })
         .catch((err) => {
-          if (err.response.data.errors["email"]) {
+          if (err.response.data.errors && err.response.data.errors["email"]) {
             actions.setFieldTouched("email", true, false);
             actions.setFieldError(
               "email",
