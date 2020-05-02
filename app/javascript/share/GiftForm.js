@@ -36,7 +36,7 @@ const GiftForm = (props) => {
       axios
         .post("/gifts", { gift: values })
         .then((resp) => {
-          console.log(resp);
+          actions.setStatus("success");
         })
         .catch((err) => {
           actions.setFieldError("general", err.response.data.error);
@@ -58,6 +58,11 @@ const GiftForm = (props) => {
     >
       {formik.errors.general && (
         <Alert severity="error">{formik.errors.general}</Alert>
+      )}
+      {formik.status && (
+        <Alert severity="success">
+          Successfully posted a crystal to share!
+        </Alert>
       )}
       <TextField
         id="name"
