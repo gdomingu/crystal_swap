@@ -12,6 +12,8 @@ import SigninForm from "../components/SigninForm";
 import Copyright from "../components/Copyright";
 
 import { UserContext } from "../context/UserContext";
+import Link from "@material-ui/core/Toolbar";
+import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -55,8 +57,11 @@ export default function Layout(props) {
             color="inherit"
             noWrap
             className={classes.title}
+            underline="none"
           >
-            Crystal Swap
+            <Button to="/" color="inherit" component={RouterLink}>
+              Crystal Swap
+            </Button>
           </Typography>
           <UserContext.Consumer>
             {(value) => {
