@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  respond_to :json
 
   def devise_current_user
     @devise_current_user ||= warden.authenticate(:scope => :user)

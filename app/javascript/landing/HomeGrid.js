@@ -49,7 +49,7 @@ const HomeGrid = () => {
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}
-                image="https://source.unsplash.com/random"
+                image={gift.images[0]}
                 title="Image title"
               />
               <CardContent className={classes.cardContent}>

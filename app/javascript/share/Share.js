@@ -12,7 +12,6 @@ import GiftForm from "./GiftForm";
 const useStyles = makeStyles({
   root: {
     maxWidth: 600,
-    height: 400,
   },
 });
 const Share = () => {

@@ -10,7 +10,8 @@ class GiftSerializerTest < ActiveSupport::TestCase
       gift_from: {
         id: gift.gifter.id,
         email: gift.gifter.email,
-      }
+      },
+      images: []
     }
     assert_equal(expected, Serializers::GiftSerializer.new(gift).to_h)
   end

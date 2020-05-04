@@ -1,3 +1,5 @@
+include Rails.application.routes.url_helpers
+
  module Serializers
   class GiftSerializer
     def initialize(gift)
@@ -9,6 +11,7 @@
         id: gift.id,
         name: gift.name,
         description: gift.description,
+        images: images,
         gift_from: {
           id: gift.gifter.id,
           email: gift.gifter.email,
@@ -19,5 +22,11 @@
     private
 
     attr_reader :gift
+
+    def images
+      gift.images.map do |image|
+        url_for(image)
+      end
+    end
   end
 end
