@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_27_161029) do
+ActiveRecord::Schema.define(version: 2020_04_29_164307) do
+
+  create_table "gifts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.integer "weight_g"
+    t.float "height_cm"
+    t.float "length_cm"
+    t.float "depth_cm"
+    t.integer "gifter_id", null: false
+    t.integer "receiver_id"
+    t.datetime "gifted_at"
+    t.datetime "published_at"
+    t.boolean "private", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gifter_id"], name: "index_gifts_on_gifter_id"
+    t.index ["receiver_id"], name: "index_gifts_on_receiver_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", default: ""
@@ -25,4 +43,6 @@ ActiveRecord::Schema.define(version: 2020_04_27_161029) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "gifts", "users", column: "gifter_id"
+  add_foreign_key "gifts", "users", column: "receiver_id"
 end

@@ -4,6 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import LoginSignup from "./LoginSignup";
 import { UserContext } from "../context/UserContext";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -41,6 +44,21 @@ const Hero = (props) => {
                     handleSuccessfulAuth={props.handleSuccessfulAuth}
                   />
                 </div>
+              );
+            } else {
+              return (
+                <Grid container spacing={1} justify="center">
+                  <Grid item>
+                    <Button
+                      component={Link}
+                      to="/share"
+                      variant="contained"
+                      color="primary"
+                    >
+                      Share a crystal
+                    </Button>
+                  </Grid>
+                </Grid>
               );
             }
           }}
