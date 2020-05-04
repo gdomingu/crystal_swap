@@ -13,19 +13,26 @@ class GiftsControllerTest < ActionDispatch::IntegrationTest
 
   test "create" do
     sign_in users(:one)
+    file = fixture_file_upload(Rails.root.join('public', 'apple-touch-icon.png'), 'image/png')
     payload = {
       gift: {
         name: "Smokey Quartz",
         description: "This is a beautiful crystal",
-        receiver_id: 2
+        receiver_id: 2,
+        images: [file],
+        published: true,
       }
     }
-    assert_changes "Gift.count", +1 do
-      post('/gifts', params: payload)
+
+    assert_difference "Gift.count", +1 do
+      assert_difference "ActiveStorage::Attachment.count", +1 do
+        post('/gifts', params: payload)
+      end
     end
     gift = Gift.last
     assert_equal(users(:one), gift.gifter)
     assert_nil(gift.receiver_id, "expected receiver_id to be nil")
+    refute_nil(gift.published_at)
     assert_equal(
       Serializers::GiftSerializer.new(gift).to_h.to_json,
       @response.body
@@ -33,9 +40,9 @@ class GiftsControllerTest < ActionDispatch::IntegrationTest
   end
 
    test "create - not authorized" do
-    payload = {}
+    payload = {gift: {name: "foo"}}
     assert_no_changes "Gift.count"  do
-      post('/gifts', params: payload.to_json)
+      post('/gifts', params: payload)
     end
     assert_response 401
   end
