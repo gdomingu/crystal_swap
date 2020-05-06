@@ -65,6 +65,7 @@ const App = () => {
               )}
             />
             <Route exact path="/share" component={Share} />
+            <Route path="/gifts/:id" component={Share} />
           </Switch>
         </Layout>
       </BrowserRouter>

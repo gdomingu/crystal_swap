@@ -22,10 +22,10 @@ const Share = () => {
       <Card className={classes.root}>
         <CardMedia
           component="img"
-          alt="Contemplative Reptile"
+          alt="placeholder"
           height="140"
           image="https://via.placeholder.com/400"
-          title="Contemplative Reptile"
+          title="placeholder"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">

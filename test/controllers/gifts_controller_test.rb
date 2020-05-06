@@ -44,7 +44,16 @@ class GiftsControllerTest < ActionDispatch::IntegrationTest
     assert_no_changes "Gift.count"  do
       post('/gifts', params: payload)
     end
-    assert_response 401
+    assert_response 302
+  end
+
+  test "show" do
+    gift = gifts(:one)
+    get("/gifts/#{gift.id}")
+    assert_equal(
+      Serializers::GiftSerializer.new(gift).to_h.to_json,
+      @response.body
+    )
   end
 
 end

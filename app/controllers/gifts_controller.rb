@@ -1,12 +1,13 @@
 class GiftsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :load_gift, only: [:show]
+
   def index
     gifts = Gift.visible.with_attached_images.map{|gift| Serializers::GiftSerializer.new(gift).to_h}
     render json: gifts
   end
 
   def create
-    return render json: {error: "Must Login"}, status: :unauthorized if current_user.blank?
-
     gift = Services::CreateGiftService.new(gift_params.merge({gifter: current_user})).call
 
     if gift.valid?
@@ -16,9 +17,17 @@ class GiftsController < ApplicationController
     end
   end
 
+  def show
+    render json: Serializers::GiftSerializer.new(@gift).to_h
+  end
+
   private
 
   def gift_params
     params.require(:gift).permit(:name, :description, :published, images: [])
+  end
+
+  def load_gift
+    @gift = Gift.find(params[:id])
   end
 end
