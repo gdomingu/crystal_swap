@@ -6,7 +6,7 @@ import Layout from "../landing/Layout";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import AxiosHelper from "../utils/AxiosHelper";
-import Share from "../share/Share";
+import Share from "../gift/Share";
 import { Redirect } from "react-router-dom";
 
 const loginStatus = (setCurrentUser) => {
