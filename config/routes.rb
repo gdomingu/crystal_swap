@@ -1,9 +1,18 @@
 Rails.application.routes.draw do
-  get "/share", to: "landing#main"
-  resources :gifts, only: [:index, :show, :create]
+  root 'landing#main'
+
+  scope :api do
+    resources :gifts, only: [:index, :show, :create]
+  end
+
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
   devise_scope :user do
     get '/signed_in' => 'sessions#signed_in'
   end
-  root 'landing#main'
+
+  # IMPORTANT #
+  # This `match` must be the *last* route in routes.rb
+  match '*path', to: 'landing#main', via: :all, constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  }
 end

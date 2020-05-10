@@ -4,7 +4,7 @@ class GiftsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   test "index" do
-    get('/gifts')
+    get('/api/gifts')
     assert_equal(
       [Serializers::GiftSerializer.new(gifts(:one)).to_h].to_json,
       @response.body
@@ -26,7 +26,7 @@ class GiftsControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference "Gift.count", +1 do
       assert_difference "ActiveStorage::Attachment.count", +1 do
-        post('/gifts', params: payload)
+        post('/api/gifts', params: payload)
       end
     end
     gift = Gift.last
@@ -42,9 +42,18 @@ class GiftsControllerTest < ActionDispatch::IntegrationTest
    test "create - not authorized" do
     payload = {gift: {name: "foo"}}
     assert_no_changes "Gift.count"  do
-      post('/gifts', params: payload)
+      post('/api/gifts', params: payload)
     end
-    assert_response 401
+    assert_response 302
+  end
+
+  test "show" do
+    gift = gifts(:one)
+    get("/api/gifts/#{gift.id}")
+    assert_equal(
+      Serializers::GiftSerializer.new(gift).to_h.to_json,
+      @response.body
+    )
   end
 
 end

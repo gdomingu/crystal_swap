@@ -9,6 +9,8 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const fetchGifts = () => {
-  return axios.get("/gifts");
+  return axios.get("/api/gifts");
 };
 
 const HomeGrid = () => {
@@ -59,7 +61,12 @@ const HomeGrid = () => {
                 <Typography>{gift.description}</Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary">
+                <Button
+                  component={Link}
+                  size="small"
+                  color="primary"
+                  to={`/gifts/${gift.id}`}
+                >
                   View
                 </Button>
                 <Button size="small" color="primary">
