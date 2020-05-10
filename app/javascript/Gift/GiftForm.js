@@ -48,7 +48,7 @@ const GiftForm = (props) => {
       AxiosHelper();
       axios({
         method: "post",
-        url: "/gifts",
+        url: "api/gifts",
         data: formData,
         config: { headers: { "Content-Type": "multipart/form-data" } },
       })

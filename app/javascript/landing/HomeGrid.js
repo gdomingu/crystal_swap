@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const fetchGifts = () => {
-  return axios.get("/gifts");
+  return axios.get("/api/gifts");
 };
 
 const HomeGrid = () => {
