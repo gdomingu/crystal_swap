@@ -51,7 +51,17 @@ const Show = () => {
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>{gift.name}</div>
+        <div className={classes.paper}>
+          <Typography gutterBottom variant="h5" component="h2">
+            {gift.name}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {gift.description}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Gifted by: {gift.gift_from.email}
+          </Typography>
+        </div>
       </Grid>
     </Grid>
   );
