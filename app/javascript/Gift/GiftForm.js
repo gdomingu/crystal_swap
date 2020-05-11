@@ -26,14 +26,19 @@ const validationSchema = Yup.object({
 
 const GiftForm = (props) => {
   const classes = useStyles();
-  const [publishedGift, setpublishedGift] = useState(false);
+  const { gift, url, method, buttonLabel, image, onSuccess } = props;
+
+  const [publishedGift, setpublishedGift] = useState(
+    !!(gift && gift.published)
+  );
   const [imagesData, setImagesData] = useState();
+  const initialValues = {
+    name: "",
+    description: "",
+    images: [],
+  };
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      description: "",
-      images: [],
-    },
+    initialValues: gift || initialValues,
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
       actions.setSubmitting(true);
@@ -44,21 +49,23 @@ const GiftForm = (props) => {
       imagesData.forEach((image) => {
         formData.append("gift[images][]", image);
       });
-      console.log(formData);
       AxiosHelper();
       axios({
-        method: "post",
-        url: "api/gifts",
+        method: method || "post",
+        url: url,
         data: formData,
         config: { headers: { "Content-Type": "multipart/form-data" } },
       })
         .then((resp) => {
           actions.setStatus("success");
+          onSuccess && onSuccess(resp);
         })
         .catch((err) => {
           actions.setFieldError("general", err.response.data.error);
         })
-        .finally(() => actions.setSubmitting(false));
+        .finally(() => {
+          actions.setSubmitting(false);
+        });
     },
   });
 
@@ -138,7 +145,7 @@ const GiftForm = (props) => {
           type="submit"
           disabled={!formik.isValid}
         >
-          Create
+          {buttonLabel}
         </Button>
       </form>
     </>

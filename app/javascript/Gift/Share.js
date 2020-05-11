@@ -20,27 +20,12 @@ const Share = () => {
   return (
     <Container maxWidth="sm">
       <Card className={classes.root}>
-        <CardMedia
-          component="img"
-          alt="placeholder"
-          height="140"
-          image="https://via.placeholder.com/400"
-          title="placeholder"
-        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             Share a crystal
           </Typography>
-          <GiftForm></GiftForm>
+          <GiftForm url="api/gifts" buttonLabel="Create"></GiftForm>
         </CardContent>
-        <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
-        </CardActions>
       </Card>
     </Container>
   );

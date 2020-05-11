@@ -56,4 +56,25 @@ class GiftsControllerTest < ActionDispatch::IntegrationTest
     )
   end
 
+  test "update" do
+    sign_in users(:one)
+    gift = gifts(:one)
+    payload = {
+      gift: {
+        name: "Smokey Quartz",
+        description: "This is a beautiful crystal",
+        published: false,
+      },
+    }
+
+    patch("/api/gifts/#{gift.id}", params: payload)
+    gift.reload
+    assert_equal("Smokey Quartz", gift.name)
+    assert_nil(gift.published_at, "should have nil published at")
+    assert_equal(
+      Serializers::GiftSerializer.new(gift).to_h.to_json,
+      @response.body
+    )
+  end
+
 end
