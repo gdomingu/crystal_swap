@@ -1,6 +1,6 @@
 class GiftsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_gift, only: [:show, :update]
+  before_action :load_gift, only: [:update, :show]
 
   def index
     gifts = Gift.visible.with_attached_images.map{|gift| Serializers::GiftSerializer.new(gift).to_h}
@@ -18,7 +18,7 @@ class GiftsController < ApplicationController
   end
 
   def update
-
+    authorize! :update, @gift
     gift = Services::UpdateGiftService.new(@gift, gift_params).call
 
     if gift.valid?

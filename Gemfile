@@ -20,6 +20,9 @@ gem 'jbuilder', '~> 2.7'
 # login solution
 gem 'devise'
 
+#roles/permissions/authorization
+gem 'cancancan'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
