@@ -8,10 +8,12 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Spinner from "../components/Spinner";
+import Container from "@material-ui/core/Container";
+import TradeRequestForm from "../trades/TradeRequestForm";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh",
+    height: "80vh",
   },
   image: {
     backgroundImage: (props) => `url(${props.url})`,
@@ -28,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+  },
+  details: {
+    marginBottom: theme.spacing(3),
   },
 }));
 
@@ -47,23 +52,28 @@ const Show = () => {
     return <Spinner />;
   }
   return (
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Typography gutterBottom variant="h5" component="h2">
-            {gift.name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {gift.description}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Gifted by: {gift.gift_from.email}
-          </Typography>
-        </div>
+    <Container fixed>
+      <Grid container component="main" className={classes.root}>
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+        <Grid item xs={12} sm={8} md={5} component={Paper} square>
+          <div className={classes.paper}>
+            <div className={classes.details}>
+              <Typography gutterBottom variant="h3" component="h3">
+                {gift.name}
+              </Typography>
+              <Typography variant="body2" component="p">
+                {gift.description}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Gifted by: {gift.gift_from.email}
+              </Typography>
+            </div>
+            <TradeRequestForm></TradeRequestForm>
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
+    </Container>
   );
 };
 
