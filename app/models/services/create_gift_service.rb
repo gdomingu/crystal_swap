@@ -11,7 +11,7 @@ module Services
       if published
         gift_params.merge!(published_at: Time.current)
       end
-      gift = Gift.create(gift_params)
+      Gift.create(gift_params)
     end
   end
 

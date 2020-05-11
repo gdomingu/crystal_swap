@@ -1,6 +1,6 @@
 class GiftsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_gift, only: [:show]
+  before_action :load_gift, only: [:show, :update]
 
   def index
     gifts = Gift.visible.with_attached_images.map{|gift| Serializers::GiftSerializer.new(gift).to_h}
@@ -9,6 +9,17 @@ class GiftsController < ApplicationController
 
   def create
     gift = Services::CreateGiftService.new(gift_params.merge({gifter: current_user})).call
+
+    if gift.valid?
+      render json: Serializers::GiftSerializer.new(gift).to_h
+    else
+      render json: {error: gift.errors.full_messages}
+    end
+  end
+
+  def update
+
+    gift = Services::UpdateGiftService.new(@gift, gift_params).call
 
     if gift.valid?
       render json: Serializers::GiftSerializer.new(gift).to_h

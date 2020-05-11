@@ -8,6 +8,7 @@ import { UserContext } from "../context/UserContext";
 import AxiosHelper from "../utils/AxiosHelper";
 import Share from "../gift/Share";
 import Show from "../gift/Show";
+import Edit from "../gift/Edit";
 import { Redirect } from "react-router-dom";
 
 const loginStatus = (setCurrentUser) => {
@@ -67,6 +68,7 @@ const App = () => {
             />
             <Route exact path="/share" component={Share} />
             <Route exact path="/gifts/:id" component={Show} />
+            <Route exact path="/gifts/:id/edit" component={Edit} />
           </Switch>
         </Layout>
       </BrowserRouter>
