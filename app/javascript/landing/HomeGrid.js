@@ -59,7 +59,7 @@ const HomeGrid = () => {
                   </Button>
                   <UserContext.Consumer>
                     {(value) => {
-                      if (value) {
+                      if (value && value.id == gift.gift_from.id) {
                         return (
                           <Button
                             size="small"
