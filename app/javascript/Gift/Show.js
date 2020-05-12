@@ -69,7 +69,7 @@ const Show = () => {
                 Gifted by: {gift.gift_from.email}
               </Typography>
             </div>
-            <TradeRequestForm></TradeRequestForm>
+            <TradeRequestForm gift_id={id}></TradeRequestForm>
           </div>
         </Grid>
       </Grid>

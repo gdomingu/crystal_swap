@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import AxiosHelper from "../utils/AxiosHelper";
 
@@ -18,8 +19,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TradeRequestForm = () => {
-  const [value, setValue] = useState("");
+const defaultValue = "I'm interested in trading!";
+
+const TradeRequestForm = (props) => {
+  const [value, setValue] = useState(defaultValue);
+  const [requested, setRequested] = useState(false);
+  const { gift_id } = props;
   const handleChange = (event) => {
     setValue(event.target.value);
   };
@@ -28,15 +33,21 @@ const TradeRequestForm = () => {
     event.preventDefault();
     AxiosHelper();
     axios
-      .post(`/api/gifts/${gift.id}/request`, { message: value })
+      .post(`/api/gifts/${gift_id}/trade_requests`, {
+        gift_request: { message: value },
+      })
       .then((resp) => {
-        console.log(resp);
+        if (resp.status == 200) {
+          setRequested(true);
+        }
       });
-    console.log("Submitted", value);
   };
 
   const classes = useStyles();
 
+  if (requested) {
+    return <Alert severity="success">Successfully requested a trade!</Alert>;
+  }
   return (
     <div>
       <Grid container>
@@ -45,7 +56,7 @@ const TradeRequestForm = () => {
             <TextField
               id="standard-multiline-static"
               label="Write a message"
-              defaultValue="I'm interested in trading!"
+              defaultValue={defaultValue}
               multiline
               rows={4}
               onChange={handleChange}
