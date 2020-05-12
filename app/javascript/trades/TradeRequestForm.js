@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import axios from "axios";
+import AxiosHelper from "../utils/AxiosHelper";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +25,13 @@ const TradeRequestForm = () => {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault;
+    event.preventDefault();
+    AxiosHelper();
+    axios
+      .post(`/api/gifts/${gift.id}/request`, { message: value })
+      .then((resp) => {
+        console.log(resp);
+      });
     console.log("Submitted", value);
   };
 
