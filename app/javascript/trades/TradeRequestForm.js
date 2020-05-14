@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -44,7 +44,15 @@ const TradeRequestForm = (props) => {
   };
 
   const classes = useStyles();
-
+  useEffect(() => {
+    AxiosHelper();
+    axios.get(`/api/gifts/${gift_id}/trade_requests`).then((resp) => {
+      if (resp.data) {
+        setRequested(true);
+      }
+    });
+    return () => {};
+  }, []);
   if (requested) {
     return <Alert severity="success">Successfully requested a trade!</Alert>;
   }

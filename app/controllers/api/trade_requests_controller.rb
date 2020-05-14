@@ -2,6 +2,17 @@ module Api
   class TradeRequestsController < ApplicationController
     before_action :authenticate_user!
     before_action :load_gift
+
+    def index
+      trade_request = TradeRequest.find_by(user: current_user, gift: @gift)
+
+      if trade_request.present?
+        render json: Serializers::TradeRequestSerializer.new(trade_request).to_h
+      else
+        render :not_found
+      end
+    end
+
     def create
       trade_request = Services::CreateTradeRequestService.new(
         request_params.merge({user: current_user, gift: @gift})

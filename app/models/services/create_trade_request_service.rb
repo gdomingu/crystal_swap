@@ -6,7 +6,7 @@ module Services
     attr_accessor :trade_request_params
 
     def call
-      TradeRequest.create(trade_request_params)
+      TradeRequest.find_or_create_by(trade_request_params)
     end
   end
 
