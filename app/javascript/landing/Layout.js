@@ -9,7 +9,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import SimpleDialog from "../components/SimpleDialog";
 import SigninForm from "../components/SigninForm";
-import Copyright from "../components/Copyright";
 
 import { UserContext } from "../context/UserContext";
 import Link from "@material-ui/core/Toolbar";
@@ -84,9 +83,12 @@ export default function Layout(props) {
                 );
               }
               return (
-                <Button color="inherit" onClick={props.handleLogout}>
-                  Logout
-                </Button>
+                <>
+                  <span>{value.email}</span>
+                  <Button color="inherit" onClick={props.handleLogout}>
+                    Logout
+                  </Button>
+                </>
               );
             }}
           </UserContext.Consumer>
