@@ -16,7 +16,7 @@ include Rails.application.routes.url_helpers
           id: gift.gifter.id,
           email: gift.gifter.email,
         },
-        published: gift.published_at.present?
+        published: gift.published_at.present?,
       }
     end
 

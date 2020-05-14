@@ -77,4 +77,19 @@ class GiftsControllerTest < ActionDispatch::IntegrationTest
     )
   end
 
+    test "update - not authorized" do
+    sign_in users(:one)
+    gift = gifts(:two)
+    payload = {
+      gift: {
+        name: "Smokey Quartz",
+        description: "This is a beautiful crystal",
+        published: false,
+      },
+    }
+
+    patch("/api/gifts/#{gift.id}", params: payload)
+    assert_response 302
+  end
+
 end

@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   root 'landing#main'
 
-  scope :api do
-    resources :gifts, only: [:index, :show, :create, :update]
+  namespace :api do
+    resources :gifts, only: [:index, :show, :create, :update] do
+      resources :trade_requests, only: [:create, :index]
+    end
   end
 
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}

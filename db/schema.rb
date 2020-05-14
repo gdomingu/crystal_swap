@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_04_160855) do
+ActiveRecord::Schema.define(version: 2020_05_12_163955) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -49,6 +49,20 @@ ActiveRecord::Schema.define(version: 2020_05_04_160855) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["gifter_id"], name: "index_gifts_on_gifter_id"
     t.index ["receiver_id"], name: "index_gifts_on_receiver_id"
+  end
+
+  create_table "trade_requests", force: :cascade do |t|
+    t.text "message"
+    t.integer "gift_id"
+    t.integer "user_id"
+    t.datetime "completed_at"
+    t.datetime "canceled_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gift_id", "user_id"], name: "index_trade_requests_on_gift_id_and_user_id"
+    t.index ["gift_id"], name: "index_trade_requests_on_gift_id"
+    t.index ["user_id", "gift_id"], name: "index_trade_requests_on_user_id_and_gift_id"
+    t.index ["user_id"], name: "index_trade_requests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
