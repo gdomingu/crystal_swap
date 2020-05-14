@@ -6,6 +6,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
+import { formatDistance } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,19 +15,30 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
 }));
+const formatDate = (date) => {
+  return formatDistance(new Date(date), new Date(), { addSuffix: true });
+};
 
-const TradeList = () => {
+const TradeList = (props) => {
   const classes = useStyles();
+  const { tradeReqs } = props;
 
   return (
     <List className={classes.root}>
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-      </ListItem>
-      <Divider />
+      {tradeReqs.map((req) => (
+        <div key={req.id}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar alt="crystal image" src={req.gift.images[0]} />
+            </ListItemAvatar>
+            <ListItemText
+              primary={req.gift.name}
+              secondary={formatDate(req.requested_at)}
+            />
+          </ListItem>
+          <Divider />
+        </div>
+      ))}
     </List>
   );
 };

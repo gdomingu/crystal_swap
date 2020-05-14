@@ -8,6 +8,8 @@ module Serializers
       {
         id: trade_request.id,
         message: trade_request.message,
+        requested_at: trade_request.created_at,
+        gift: GiftSerializer.new(trade_request.gift).to_h,
       }
     end
 

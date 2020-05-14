@@ -24,11 +24,11 @@ const Requests = () => {
 
   useEffect(() => {
     AxiosHelper();
-    // axios.get("/trade_requests").then((resp) => {
-    //   if (resp.code == 200) {
-    //     setTradeReqs(resp.data);
-    //   }
-    // });
+    axios.get("/api/trade_requests").then((resp) => {
+      if (resp.status == 200) {
+        setTradeReqs(resp.data);
+      }
+    });
     return () => {};
   }, []);
   return (
@@ -40,7 +40,7 @@ const Requests = () => {
               <Typography variant="subtitle1">Trade Requests</Typography>
             </CardContent>
             <CardContent>
-              <TradeList></TradeList>
+              <TradeList tradeReqs={tradeReqs}></TradeList>
             </CardContent>
           </Card>
         </Grid>

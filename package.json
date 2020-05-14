@@ -12,6 +12,7 @@
     "@rails/webpacker": "4.2.2",
     "axios": "^0.19.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "date-fns": "^2.13.0",
     "formik": "^2.1.4",
     "material-ui-dropzone": "^3.0.0",
     "prop-types": "^15.7.2",
