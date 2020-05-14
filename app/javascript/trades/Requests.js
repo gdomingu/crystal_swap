@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     height: "80vh",
   },
+  cardHeader: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+  },
 }));
 
 const Requests = () => {
@@ -33,7 +36,7 @@ const Requests = () => {
       <Grid container component="main" className={classes.root}>
         <Grid item xs={4} sm={4}>
           <Card className={classes.root} variant="outlined">
-            <CardContent>
+            <CardContent className={classes.cardHeader}>
               <Typography variant="subtitle1">Trade Requests</Typography>
             </CardContent>
             <CardContent>

@@ -3,8 +3,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :gifts, only: [:index, :show, :create, :update] do
-      resources :trade_requests, only: [:create, :index]
+      resources :trade_requests, only: [:create, :index], controller: 'gifts/trade_requests'
     end
+    resources :trade_requests, only: [:index]
   end
 
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}

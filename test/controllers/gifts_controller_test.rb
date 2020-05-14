@@ -77,7 +77,7 @@ class GiftsControllerTest < ActionDispatch::IntegrationTest
     )
   end
 
-    test "update - not authorized" do
+  test "update - not authorized" do
     sign_in users(:one)
     gift = gifts(:two)
     payload = {

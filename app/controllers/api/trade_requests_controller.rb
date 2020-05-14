@@ -1,38 +1,19 @@
 module Api
   class TradeRequestsController < ApplicationController
     before_action :authenticate_user!
-    before_action :load_gift
 
     def index
-      trade_request = TradeRequest.find_by(user: current_user, gift: @gift)
+      trade_requests = TradeRequest.joins(:gift).where(gifts: {gifter: current_user})
 
-      if trade_request.present?
-        render json: Serializers::TradeRequestSerializer.new(trade_request).to_h
-      else
-        render :not_found
+      response = trade_requests.collect do |trade_request|
+        Serializers::TradeRequestSerializer.new(trade_request).to_h
       end
-    end
 
-    def create
-      trade_request = Services::CreateTradeRequestService.new(
-        request_params.merge({user: current_user, gift: @gift})
-      ).call
-
-      if trade_request.valid?
-        render json: Serializers::TradeRequestSerializer.new(trade_request).to_h
+      if trade_requests.any?
+        render json: response
       else
-        render json: {error: trade_request.errors.full_messages}
+        render_not_found
       end
-    end
-
-    private
-
-    def load_gift
-      @gift = Gift.find(params[:gift_id])
-    end
-
-    def request_params
-      params.require(:gift_request).permit(:message)
     end
   end
 end
