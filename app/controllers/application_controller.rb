@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
       format.js   { head :forbidden, content_type: 'text/html' }
     end
   end
+
+  def render_not_found
+    render json: {error: "Not found"}, status: :not_found
+  end
 end
