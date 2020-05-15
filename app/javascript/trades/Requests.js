@@ -20,7 +20,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Requests = () => {
   const [tradeReqs, setTradeReqs] = useState([]);
+  const [tradeReq, setTradeReq] = useState();
   const classes = useStyles();
+
+  const handleListItemClick = (id) => {
+    AxiosHelper();
+    axios.get(`/api/trade_requests/${id}`).then((resp) => {
+      if (resp.status == 200) {
+        setTradeReq(resp.data);
+      }
+    });
+  };
 
   useEffect(() => {
     AxiosHelper();
@@ -39,14 +49,35 @@ const Requests = () => {
             <CardContent className={classes.cardHeader}>
               <Typography variant="subtitle1">Trade Requests</Typography>
             </CardContent>
-            <CardContent>
-              <TradeList tradeReqs={tradeReqs}></TradeList>
-            </CardContent>
+            <TradeList
+              tradeReqs={tradeReqs}
+              handleClick={handleListItemClick}
+            ></TradeList>
           </Card>
         </Grid>
         <Grid item xs={8} sm={8}>
           <Card className={classes.root} variant="outlined">
-            <CardContent></CardContent>
+            {tradeReq && (
+              <Grid container>
+                <Grid item xs={7} sm={7}>
+                  <CardContent>
+                    <Typography variant="h3">{tradeReq.gift.name}</Typography>
+                    <Typography variant="subtitle1">
+                      Requested by: {tradeReq.requested_by}
+                    </Typography>
+                    <Typography variant="body1">
+                      {tradeReq.message || "No message"}
+                    </Typography>
+                  </CardContent>
+                </Grid>
+                <Grid item xs={4} sm={4}>
+                  <img
+                    src={tradeReq.gift.images[0]}
+                    style={{ width: "100%" }}
+                  ></img>
+                </Grid>
+              </Grid>
+            )}
           </Card>
         </Grid>
       </Grid>

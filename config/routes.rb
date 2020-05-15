@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :gifts, only: [:index, :show, :create, :update] do
       resources :trade_requests, only: [:create, :index], controller: 'gifts/trade_requests'
     end
-    resources :trade_requests, only: [:index]
+    resources :trade_requests, only: [:index, :show]
   end
 
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}

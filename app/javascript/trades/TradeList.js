@@ -11,8 +11,10 @@ import { formatDistance } from "date-fns";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    maxWidth: 360,
+    height: "100%",
     backgroundColor: theme.palette.background.paper,
+    paddingTop: "0",
+    overflow: "auto",
   },
 }));
 const formatDate = (date) => {
@@ -21,19 +23,19 @@ const formatDate = (date) => {
 
 const TradeList = (props) => {
   const classes = useStyles();
-  const { tradeReqs } = props;
+  const { tradeReqs, handleClick } = props;
 
   return (
     <List className={classes.root}>
       {tradeReqs.map((req) => (
         <div key={req.id}>
-          <ListItem>
+          <ListItem button onClick={() => handleClick(req.id)}>
             <ListItemAvatar>
               <Avatar alt="crystal image" src={req.gift.images[0]} />
             </ListItemAvatar>
             <ListItemText
               primary={req.gift.name}
-              secondary={formatDate(req.requested_at)}
+              secondary={formatDate(req.created_at)}
             />
           </ListItem>
           <Divider />
