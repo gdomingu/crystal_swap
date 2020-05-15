@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_12_163955) do
+ActiveRecord::Schema.define(version: 2020_05_15_172501) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -51,6 +51,20 @@ ActiveRecord::Schema.define(version: 2020_05_12_163955) do
     t.index ["receiver_id"], name: "index_gifts_on_receiver_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string "body"
+    t.integer "trade_request_id"
+    t.integer "sender_id", null: false
+    t.integer "receiver_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["receiver_id", "sender_id"], name: "index_messages_on_receiver_id_and_sender_id"
+    t.index ["receiver_id"], name: "index_messages_on_receiver_id"
+    t.index ["sender_id", "receiver_id"], name: "index_messages_on_sender_id_and_receiver_id"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
+    t.index ["trade_request_id"], name: "index_messages_on_trade_request_id"
+  end
+
   create_table "trade_requests", force: :cascade do |t|
     t.text "message"
     t.integer "gift_id"
@@ -81,4 +95,7 @@ ActiveRecord::Schema.define(version: 2020_05_12_163955) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "gifts", "users", column: "gifter_id"
   add_foreign_key "gifts", "users", column: "receiver_id"
+  add_foreign_key "messages", "trade_requests"
+  add_foreign_key "messages", "users", column: "receiver_id"
+  add_foreign_key "messages", "users", column: "sender_id"
 end

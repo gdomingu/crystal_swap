@@ -4,7 +4,9 @@ module Api
     before_action :load_trade_request
 
     def index
-      trade_requests = TradeRequest.joins(:gift).where(gifts: {gifter: current_user})
+      trade_requests = TradeRequest.joins(:gift).
+      where(gifts: {gifter: current_user}).
+      or(TradeRequest.joins(:gift).where(user: current_user))
 
       response = trade_requests.collect do |trade_request|
         Serializers::TradeRequestSerializer.new(trade_request).to_h
