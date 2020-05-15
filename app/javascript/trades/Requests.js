@@ -52,6 +52,7 @@ const Requests = () => {
             <TradeList
               tradeReqs={tradeReqs}
               handleClick={handleListItemClick}
+              selectedReq={tradeReq}
             ></TradeList>
           </Card>
         </Grid>
