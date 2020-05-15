@@ -6,7 +6,7 @@ module Api
     def index
       trade_requests = TradeRequest.joins(:gift).
       where(gifts: {gifter: current_user}).
-      or(TradeRequest.joins(:gift).where(user: current_user))
+      or(TradeRequest.joins(:gift).where(user: current_user)).distinct
 
       response = trade_requests.collect do |trade_request|
         Serializers::TradeRequestSerializer.new(trade_request).to_h
