@@ -11,7 +11,7 @@ import TradeList from "./TradeList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "80vh",
+    height: "100%",
   },
   cardHeader: {
     borderBottom: `1px solid ${theme.palette.divider}`,
