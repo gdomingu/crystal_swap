@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from "react";
 import MessageForm from "./MessageForm";
-import Chip from "@material-ui/core/Chip";
 import { UserContext } from "../context/UserContext";
+import { makeStyles } from "@material-ui/core/styles";
+import ChatBubble from "../components/ChatBubble";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(0.5),
+    },
+  },
+  chip: {
+    margin: theme.spacing(0.5),
+    padding: theme.spacing(0.5),
+    wordWrap: "break-word",
+  },
+}));
 const Chat = (props) => {
   const [messages, setMessages] = useState([]);
   const [chatChannel, setchatChannel] = useState(null);
+  const classes = useStyles();
 
   useEffect(() => {
     CableApp.cable.subscriptions.create(
@@ -37,9 +51,10 @@ const Chat = (props) => {
               style={{
                 justifyContent: flexDir(value, message),
                 display: "flex",
+                flexWrap: "wrap",
               }}
             >
-              <Chip size="small" label={message.body} />
+              <ChatBubble label={message.body} className={classes.chip} />
             </div>
           );
         }}
@@ -49,7 +64,7 @@ const Chat = (props) => {
   return (
     <div className="chatroom-container">
       <div>ChatRoom</div>
-      <div className="message-list">{messageList}</div>
+      <div className={classes.root}>{messageList}</div>
       <MessageForm chatChannel={chatChannel} userId={props.userId} />
     </div>
   );
