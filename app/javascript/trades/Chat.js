@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MessageForm from "./MessageForm";
+import Chip from "@material-ui/core/Chip";
+import { UserContext } from "../context/UserContext";
 
 const Chat = (props) => {
   const [messages, setMessages] = useState([]);
@@ -23,12 +25,25 @@ const Chat = (props) => {
     );
     return () => {};
   }, []);
+  const flexDir = (currentUser, message) => {
+    return message.sender_id == currentUser.id ? "flex-end" : "flex-start";
+  };
   const messageList = messages.map((message) => {
     return (
-      <li key={message.id}>
-        {message.body}
-        <div />
-      </li>
+      <UserContext.Consumer key={message.id}>
+        {(value) => {
+          return (
+            <div
+              style={{
+                justifyContent: flexDir(value, message),
+                display: "flex",
+              }}
+            >
+              <Chip size="small" label={message.body} />
+            </div>
+          );
+        }}
+      </UserContext.Consumer>
     );
   });
   return (
