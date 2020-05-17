@@ -1,8 +1,20 @@
 import React, { useState } from "react";
-
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import { makeStyles } from "@material-ui/core/styles";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    paddingLeft: theme.spacing(0.5),
+    paddingRight: theme.spacing(0.5),
+  },
+  input: {
+    borderRadius: 75,
+  },
+}));
 const MessageForm = (props) => {
   const { chatChannel, userId } = props;
   const [body, setBody] = useState("");
+  const classes = useStyles();
+
   const handleChange = (event) => {
     setBody(event.target.value);
   };
@@ -15,15 +27,16 @@ const MessageForm = (props) => {
     setBody("");
   };
   return (
-    <div>
+    <div className={classes.root}>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
+        <OutlinedInput
+          variant="outlined"
           value={body}
           onChange={handleChange}
-          placeholder="Type message here"
+          fullWidth
+          className={classes.input}
+          placeholder={"Message"}
         />
-        <input type="submit" />
       </form>
     </div>
   );

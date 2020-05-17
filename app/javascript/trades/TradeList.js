@@ -11,7 +11,7 @@ import { formatDistance } from "date-fns";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    height: "300px",
+    height: "100%",
     backgroundColor: theme.palette.background.paper,
     paddingTop: "0",
     overflow: "auto",

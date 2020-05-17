@@ -13,7 +13,7 @@ import Chat from "./Chat";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100%",
+    height: "80vh",
   },
   cardHeader: {
     borderBottom: `1px solid ${theme.palette.divider}`,
