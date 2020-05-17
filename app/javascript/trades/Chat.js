@@ -35,8 +35,7 @@ const Chat = (props) => {
       { channel: "ChatChannel" },
       {
         received: function (data) {
-          let messages = data.messages;
-          setMessages((prevMessages) => [...prevMessages, ...messages]);
+          setMessages((prevMessages) => [...prevMessages, ...data.messages]);
         },
         speak: function (data) {
           data["trade_request_id"] = props.tradeRequestId;

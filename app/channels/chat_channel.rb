@@ -10,7 +10,8 @@ class ChatChannel < ApplicationCable::Channel
       receiver_id: data['receiver_id'],
       trade_request_id: data['trade_request_id']
     )
-    socket = { body: message.body, id: message.id, sender_id: current_user.id }
+    message_hash = { body: message.body, id: message.id, sender_id: current_user.id }
+    socket = { messages: [message_hash], type: 'messages' }
     ActionCable.server.broadcast("chat_channel", socket)
   end
 
