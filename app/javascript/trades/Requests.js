@@ -8,10 +8,12 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import TradeList from "./TradeList";
+import Request from "./Request";
+import Chat from "./Chat";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100%",
+    height: "80vh",
   },
   cardHeader: {
     borderBottom: `1px solid ${theme.palette.divider}`,
@@ -52,32 +54,23 @@ const Requests = () => {
             <TradeList
               tradeReqs={tradeReqs}
               handleClick={handleListItemClick}
+              selectedReq={tradeReq}
             ></TradeList>
           </Card>
         </Grid>
-        <Grid item xs={8} sm={8}>
+        <Grid item xs={4} sm={4}>
           <Card className={classes.root} variant="outlined">
             {tradeReq && (
-              <Grid container>
-                <Grid item xs={7} sm={7}>
-                  <CardContent>
-                    <Typography variant="h3">{tradeReq.gift.name}</Typography>
-                    <Typography variant="subtitle1">
-                      Requested by: {tradeReq.requested_by}
-                    </Typography>
-                    <Typography variant="body1">
-                      {tradeReq.message || "No message"}
-                    </Typography>
-                  </CardContent>
-                </Grid>
-                <Grid item xs={4} sm={4}>
-                  <img
-                    src={tradeReq.gift.images[0]}
-                    style={{ width: "100%" }}
-                  ></img>
-                </Grid>
-              </Grid>
+              <Chat
+                userId={tradeReq.gift.gift_from.id}
+                tradeRequestId={tradeReq.id}
+              />
             )}
+          </Card>
+        </Grid>
+        <Grid item xs={4} sm={4}>
+          <Card className={classes.root} variant="outlined">
+            {tradeReq && <Request tradeReq={tradeReq} />}
           </Card>
         </Grid>
       </Grid>

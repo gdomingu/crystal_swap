@@ -4,16 +4,19 @@ class GiftsTradeRequestsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   test "create - can request a trade" do
-    user = users(:two)
-    gift = gifts(:one)
+    user = users(:one)
+    gift = gifts(:two)
     sign_in user
-    assert_difference -> {TradeRequest.count}, +1 do
-      post("/api/gifts/#{gift.id}/trade_requests", params: {
-          gift_request: {message: "I would like to trade"}
-      })
+    assert_difference -> {Message.count}, +1 do
+      assert_difference -> {TradeRequest.count}, +1 do
+        post("/api/gifts/#{gift.id}/trade_requests", params: {
+            message: {body: "I would like to trade"}
+        })
+      end
     end
 
     assert_equal(user, TradeRequest.last.user)
+    assert_equal("I would like to trade", Message.last.body)
     assert_response 200
   end
 
@@ -22,11 +25,11 @@ class GiftsTradeRequestsControllerTest < ActionDispatch::IntegrationTest
     gift = gifts(:one)
     sign_in user
     post("/api/gifts/#{gift.id}/trade_requests", params: {
-        gift_request: {message: "I would like to trade"}
+        message: {body: "I would like to trade"}
     })
     assert_no_difference -> {TradeRequest.count} do
       post("/api/gifts/#{gift.id}/trade_requests", params: {
-          gift_request: {message: "I would like to trade"}
+          message: {body: "I would like to trade"}
       })
     end
   end

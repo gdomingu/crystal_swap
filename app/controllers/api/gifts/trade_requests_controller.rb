@@ -15,7 +15,7 @@ module Api
 
     def create
       trade_request = Services::CreateTradeRequestService.new(
-        request_params.merge({user: current_user, gift: @gift})
+        message_params, {user: current_user, gift: @gift}
       ).call
 
       if trade_request.valid?
@@ -31,8 +31,8 @@ module Api
       @gift = Gift.find(params[:gift_id])
     end
 
-    def request_params
-      params.require(:gift_request).permit(:message)
+    def message_params
+      params.require(:message).permit(:body)
     end
   end
 end

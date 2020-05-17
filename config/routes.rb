@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     get '/signed_in' => 'sessions#signed_in'
   end
 
+  #routes for chat websockets
+  mount ActionCable.server => '/cable'
+
   # IMPORTANT #
   # This `match` must be the *last* route in routes.rb
   match '*path', to: 'landing#main', via: :all, constraints: lambda { |req|

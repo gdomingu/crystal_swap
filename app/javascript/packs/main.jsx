@@ -5,6 +5,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
+import actionCable from 'actioncable';
+
+(function() {
+  window.CableApp || (window.CableApp = {});
+  CableApp.cable = actionCable.createConsumer('ws://localhost:3000/cable')
+}).call(this);
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(

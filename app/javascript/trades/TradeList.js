@@ -11,7 +11,7 @@ import { formatDistance } from "date-fns";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    height: "300px",
+    height: "100%",
     backgroundColor: theme.palette.background.paper,
     paddingTop: "0",
     overflow: "auto",
@@ -23,14 +23,17 @@ const formatDate = (date) => {
 
 const TradeList = (props) => {
   const classes = useStyles();
-  const { tradeReqs, handleClick } = props;
-
+  const { tradeReqs, handleClick, selectedReq } = props;
   return (
     <div className={classes.root}>
       <List>
         {tradeReqs.map((req) => (
           <div key={req.id}>
-            <ListItem button onClick={() => handleClick(req.id)}>
+            <ListItem
+              button
+              onClick={() => handleClick(req.id)}
+              selected={selectedReq && selectedReq.id == req.id}
+            >
               <ListItemAvatar>
                 <Avatar alt="crystal image" src={req.gift.images[0]} />
               </ListItemAvatar>
