@@ -34,7 +34,7 @@ const TradeRequestForm = (props) => {
     AxiosHelper();
     axios
       .post(`/api/gifts/${gift_id}/trade_requests`, {
-        gift_request: { message: value },
+        message: { body: value },
       })
       .then((resp) => {
         if (resp.status == 200) {
