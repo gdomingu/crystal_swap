@@ -35,7 +35,8 @@ const Chat = (props) => {
       { channel: "ChatChannel" },
       {
         received: function (data) {
-          setMessages((prevMessages) => [...prevMessages, data]);
+          let messages = data.messages;
+          setMessages((prevMessages) => [...prevMessages, ...messages]);
         },
         speak: function (data) {
           data["trade_request_id"] = props.tradeRequestId;
@@ -43,6 +44,11 @@ const Chat = (props) => {
         },
         initialized: function () {
           setchatChannel(this);
+        },
+        connected: function () {
+          return this.perform("load", {
+            trade_request_id: props.tradeRequestId,
+          });
         },
       }
     );

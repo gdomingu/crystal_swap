@@ -21,8 +21,12 @@ const MessageForm = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     chatChannel.speak({
-      message: body,
-      receiver_id: userId,
+      messages: [
+        {
+          message: body,
+          receiver_id: userId,
+        },
+      ],
     });
     setBody("");
   };
