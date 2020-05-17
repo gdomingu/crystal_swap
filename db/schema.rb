@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_15_172501) do
+ActiveRecord::Schema.define(version: 2020_05_17_024652) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 2020_05_15_172501) do
   end
 
   create_table "trade_requests", force: :cascade do |t|
-    t.text "message"
     t.integer "gift_id"
     t.integer "user_id"
     t.datetime "completed_at"
