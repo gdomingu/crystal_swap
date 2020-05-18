@@ -109,7 +109,7 @@ export default function Layout(props) {
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant="caption" gutterBottom>
-          For those who believe in a better world
+          With our hearts we chisel quartz to reach love.
         </Typography>
       </footer>
       {/* End footer */}
