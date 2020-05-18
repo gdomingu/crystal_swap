@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2020_05_17_024652) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -40,8 +43,8 @@ ActiveRecord::Schema.define(version: 2020_05_17_024652) do
     t.float "height_cm"
     t.float "length_cm"
     t.float "depth_cm"
-    t.integer "gifter_id", null: false
-    t.integer "receiver_id"
+    t.bigint "gifter_id", null: false
+    t.bigint "receiver_id"
     t.datetime "gifted_at"
     t.datetime "published_at"
     t.boolean "private", default: false, null: false
@@ -53,9 +56,9 @@ ActiveRecord::Schema.define(version: 2020_05_17_024652) do
 
   create_table "messages", force: :cascade do |t|
     t.string "body"
-    t.integer "trade_request_id"
-    t.integer "sender_id", null: false
-    t.integer "receiver_id", null: false
+    t.bigint "trade_request_id"
+    t.bigint "sender_id", null: false
+    t.bigint "receiver_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["receiver_id", "sender_id"], name: "index_messages_on_receiver_id_and_sender_id"
@@ -66,8 +69,8 @@ ActiveRecord::Schema.define(version: 2020_05_17_024652) do
   end
 
   create_table "trade_requests", force: :cascade do |t|
-    t.integer "gift_id"
-    t.integer "user_id"
+    t.bigint "gift_id"
+    t.bigint "user_id"
     t.datetime "completed_at"
     t.datetime "canceled_at"
     t.datetime "created_at", precision: 6, null: false
