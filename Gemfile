@@ -20,6 +20,9 @@ gem 'jbuilder', '~> 2.7'
 # login solution
 gem 'devise'
 
+#for storaging images in s3 bucket
+gem "aws-sdk-s3", require: false
+
 #roles/permissions/authorization
 gem 'cancancan'
 
