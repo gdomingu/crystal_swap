@@ -26,23 +26,24 @@ const useStyles = makeStyles((theme) => ({
 
 const Chat = (props) => {
   const [messages, setMessages] = useState([]);
-  const [chatChannel, setchatChannel] = useState(null);
   const classes = useStyles();
   const bubbleRef = useRef(null);
 
   useEffect(() => {
-    CableApp.cable.subscriptions.create(
-      { channel: "ChatChannel" },
+    if (CableApp.room) CableApp.cable.subscriptions.remove(CableApp.room);
+    CableApp.room = CableApp.cable.subscriptions.create(
+      { channel: "ChatChannel", room: props.tradeRequestId },
       {
         received: function (data) {
-          setMessages((prevMessages) => [...prevMessages, ...data.messages]);
+          if (data.type == "message") {
+            setMessages((prevMessages) => [...prevMessages, ...data.messages]);
+          } else {
+            setMessages(data.messages);
+          }
         },
         speak: function (data) {
           data["trade_request_id"] = props.tradeRequestId;
           return this.perform("speak", data);
-        },
-        initialized: function () {
-          setchatChannel(this);
         },
         connected: function () {
           return this.perform("load", {
@@ -52,7 +53,7 @@ const Chat = (props) => {
       }
     );
     return () => {};
-  }, []);
+  }, [props.tradeRequestId]);
 
   useEffect(() => {
     bubbleRef.current && bubbleRef.current.scrollIntoView({ block: "end" });
@@ -85,7 +86,7 @@ const Chat = (props) => {
   return (
     <div className={classes.root}>
       <div className={classes.root}>{messageList}</div>
-      <MessageForm chatChannel={chatChannel} userId={props.userId} />
+      <MessageForm userId={props.userId} />
     </div>
   );
 };

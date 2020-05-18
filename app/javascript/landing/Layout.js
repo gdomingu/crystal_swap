@@ -45,14 +45,14 @@ export default function Layout(props) {
       <CssBaseline />
       <AppBar position="relative" className={classes.root}>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography
             variant="h6"
             color="inherit"

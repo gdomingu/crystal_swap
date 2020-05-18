@@ -39,7 +39,7 @@ const TradeList = (props) => {
               </ListItemAvatar>
               <ListItemText
                 primary={req.gift.name}
-                secondary={formatDate(req.created_at)}
+                secondary={`requested ${formatDate(req.created_at)}`}
               />
             </ListItem>
             <Divider />

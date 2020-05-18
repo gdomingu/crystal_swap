@@ -7,6 +7,11 @@ import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+
 import TradeList from "./TradeList";
 import Request from "./Request";
 import Chat from "./Chat";
@@ -17,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cardHeader: {
     borderBottom: `1px solid ${theme.palette.divider}`,
+  },
+  avatar: {
+    // margin: theme.spacing(1),
   },
 }));
 
@@ -61,10 +69,17 @@ const Requests = () => {
         <Grid item xs={4} sm={4}>
           <Card className={classes.root} variant="outlined">
             {tradeReq && (
-              <Chat
-                userId={tradeReq.gift.gift_from.id}
-                tradeRequestId={tradeReq.id}
-              />
+              <>
+                <CardContent className={classes.cardHeader}>
+                  <Typography variant="subtitle1">
+                    {tradeReq.requested_by}
+                  </Typography>
+                </CardContent>
+                <Chat
+                  userId={tradeReq.gift.gift_from.id}
+                  tradeRequestId={tradeReq.id}
+                />
+              </>
             )}
           </Card>
         </Grid>
