@@ -1,6 +1,6 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "chat_channel"
+    stream_from "chat_channel_#{params[:room]}"
   end
 
   def speak(data)
@@ -11,8 +11,8 @@ class ChatChannel < ApplicationCable::Channel
       trade_request_id: data['trade_request_id']
     )
     message_hash = { body: message.body, id: message.id, sender_id: current_user.id }
-    socket = { messages: [message_hash], type: 'messages' }
-    ActionCable.server.broadcast("chat_channel", socket)
+    socket = { messages: [message_hash], type: 'message' }
+    ActionCable.server.broadcast("chat_channel_#{params[:room]}", socket)
   end
 
   def load(data)
@@ -20,7 +20,7 @@ class ChatChannel < ApplicationCable::Channel
       { body: message.body, id: message.id, sender_id: message.sender_id }
     end
     socket = { messages: messages, type: 'messages' }
-    ActionCable.server.broadcast("chat_channel", socket)
+    ActionCable.server.broadcast("chat_channel_#{params[:room]}", socket)
   end
 
   def unsubscribed

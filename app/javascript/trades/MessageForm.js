@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const MessageForm = (props) => {
-  const { chatChannel, userId } = props;
+  const { userId } = props;
   const [body, setBody] = useState("");
   const classes = useStyles();
 
@@ -20,7 +20,7 @@ const MessageForm = (props) => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    chatChannel.speak({
+    CableApp.room.speak({
       message: body,
       receiver_id: userId,
     });
