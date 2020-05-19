@@ -9,7 +9,7 @@ import actionCable from 'actioncable';
 
 (function() {
   window.CableApp || (window.CableApp = {});
-  CableApp.cable = actionCable.createConsumer('ws://localhost:3000/cable')
+  CableApp.cable = actionCable.createConsumer()
 }).call(this);
 
 document.addEventListener('DOMContentLoaded', () => {
