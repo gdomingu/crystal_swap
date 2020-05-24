@@ -3,10 +3,7 @@ import MessageForm from "./MessageForm";
 import { UserContext } from "../context/UserContext";
 import { makeStyles } from "@material-ui/core/styles";
 import ChatBubble from "../components/ChatBubble";
-import Grid from "@material-ui/core/Grid";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import Card from "@material-ui/core/Card";
 
 const useStyles = makeStyles((theme) => ({
   chatContainer: {
@@ -69,34 +66,45 @@ const Chat = (props) => {
   const flexDir = (currentUser, message) => {
     return message.sender_id == currentUser.id ? "flex-end" : "flex-start";
   };
-  const messageList = messages.map((message) => {
-    return (
-      <UserContext.Consumer key={message.id}>
-        {(value) => {
-          return (
-            <div
-              style={{
-                justifyContent: flexDir(value, message),
-                display: "flex",
-                flexWrap: "wrap",
-              }}
-            >
-              <ChatBubble label={message.body} className={classes.chip} />
-              <div ref={bubbleRef} />
-            </div>
-          );
-        }}
-      </UserContext.Consumer>
-    );
-  });
+
+  const chattingWith = (user) => {
+    if (user.email == tradeReq.requested_by.email) {
+      return tradeReq.gift.gift_from;
+    }
+    return tradeReq.requested_by;
+  };
+  const messageList = (user) =>
+    messages.map((message) => {
+      return (
+        <div
+          style={{
+            justifyContent: flexDir(user, message),
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+          key={message.id}
+        >
+          <ChatBubble label={message.body} className={classes.chip} />
+          <div ref={bubbleRef} />
+        </div>
+      );
+    });
   return (
-    <div className={classes.chatContainer}>
-      <div className={classes.cardHeader}>
-        <Typography variant="subtitle1">{tradeReq.requested_by}</Typography>
-      </div>
-      <div className={classes.messageList}>{messageList}</div>
-      <MessageForm userId={tradeReq.gift.gift_from.id} />
-    </div>
+    <UserContext.Consumer>
+      {(user) => {
+        return (
+          <div className={classes.chatContainer}>
+            <div className={classes.cardHeader}>
+              <Typography variant="subtitle1">
+                {chattingWith(user).email}
+              </Typography>
+            </div>
+            <div className={classes.messageList}>{messageList(user)}</div>
+            <MessageForm userId={chattingWith(user).id} />
+          </div>
+        );
+      }}
+    </UserContext.Consumer>
   );
 };
 

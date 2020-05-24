@@ -12,7 +12,7 @@ const Request = (props) => {
         <CardContent>
           <Typography variant="h3">{tradeReq.gift.name}</Typography>
           <Typography variant="subtitle1">
-            Requested by: {tradeReq.requested_by}
+            Requested by: {tradeReq.requested_by.email}
           </Typography>
         </CardContent>
       </Grid>
