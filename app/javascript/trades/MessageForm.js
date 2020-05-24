@@ -3,8 +3,7 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingLeft: theme.spacing(0.5),
-    paddingRight: theme.spacing(0.5),
+    padding: theme.spacing(0.5),
   },
   input: {
     borderRadius: 75,

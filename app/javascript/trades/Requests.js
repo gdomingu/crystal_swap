@@ -23,9 +23,6 @@ const useStyles = makeStyles((theme) => ({
   cardHeader: {
     borderBottom: `1px solid ${theme.palette.divider}`,
   },
-  avatar: {
-    // margin: theme.spacing(1),
-  },
 }));
 
 const Requests = () => {
@@ -66,28 +63,20 @@ const Requests = () => {
             ></TradeList>
           </Card>
         </Grid>
-        <Grid item xs={4} sm={4}>
-          <Card className={classes.root} variant="outlined">
-            {tradeReq && (
-              <>
-                <CardContent className={classes.cardHeader}>
-                  <Typography variant="subtitle1">
-                    {tradeReq.requested_by}
-                  </Typography>
-                </CardContent>
-                <Chat
-                  userId={tradeReq.gift.gift_from.id}
-                  tradeRequestId={tradeReq.id}
-                />
-              </>
-            )}
-          </Card>
-        </Grid>
-        <Grid item xs={4} sm={4}>
-          <Card className={classes.root} variant="outlined">
-            {tradeReq && <Request tradeReq={tradeReq} />}
-          </Card>
-        </Grid>
+        {tradeReq && (
+          <>
+            <Grid item xs={4} sm={4}>
+              <Card className={classes.chatCard} variant="outlined">
+                <Chat tradeReq={tradeReq} />
+              </Card>
+            </Grid>
+            <Grid item xs={4} sm={4}>
+              <Card className={classes.root} variant="outlined">
+                {tradeReq && <Request tradeReq={tradeReq} />}
+              </Card>
+            </Grid>
+          </>
+        )}
       </Grid>
     </Container>
   );

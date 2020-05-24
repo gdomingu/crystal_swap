@@ -3,24 +3,29 @@ import MessageForm from "./MessageForm";
 import { UserContext } from "../context/UserContext";
 import { makeStyles } from "@material-ui/core/styles";
 import ChatBubble from "../components/ChatBubble";
+import Grid from "@material-ui/core/Grid";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import Card from "@material-ui/core/Card";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(0.5),
-    },
+  chatContainer: {
     display: "flex",
-    height: "100%",
     flexDirection: "column",
-    overflowY: "scroll",
+    height: "80vh",
   },
   chip: {
     margin: theme.spacing(0.5),
     padding: theme.spacing(0.5),
     wordWrap: "break-word",
   },
-  input: {
-    justifyContent: "flex-end",
+  cardHeader: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    padding: theme.spacing(2),
+  },
+  messageList: {
+    overflowY: "scroll",
+    flex: "1",
   },
 }));
 
@@ -28,11 +33,12 @@ const Chat = (props) => {
   const [messages, setMessages] = useState([]);
   const classes = useStyles();
   const bubbleRef = useRef(null);
+  const { tradeReq } = props;
 
   useEffect(() => {
     if (CableApp.room) CableApp.cable.subscriptions.remove(CableApp.room);
     CableApp.room = CableApp.cable.subscriptions.create(
-      { channel: "ChatChannel", room: props.tradeRequestId },
+      { channel: "ChatChannel", room: tradeReq.id },
       {
         received: function (data) {
           if (data.type == "message") {
@@ -42,18 +48,18 @@ const Chat = (props) => {
           }
         },
         speak: function (data) {
-          data["trade_request_id"] = props.tradeRequestId;
+          data["trade_request_id"] = tradeReq.id;
           return this.perform("speak", data);
         },
         connected: function () {
           return this.perform("load", {
-            trade_request_id: props.tradeRequestId,
+            trade_request_id: tradeReq.id,
           });
         },
       }
     );
     return () => {};
-  }, [props.tradeRequestId]);
+  }, [tradeReq.id]);
 
   useEffect(() => {
     bubbleRef.current && bubbleRef.current.scrollIntoView({ block: "end" });
@@ -84,9 +90,12 @@ const Chat = (props) => {
     );
   });
   return (
-    <div className={classes.root}>
-      <div className={classes.root}>{messageList}</div>
-      <MessageForm userId={props.userId} />
+    <div className={classes.chatContainer}>
+      <div className={classes.cardHeader}>
+        <Typography variant="subtitle1">{tradeReq.requested_by}</Typography>
+      </div>
+      <div className={classes.messageList}>{messageList}</div>
+      <MessageForm userId={tradeReq.gift.gift_from.id} />
     </div>
   );
 };
