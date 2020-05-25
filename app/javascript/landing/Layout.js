@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import MailIcon from "@material-ui/icons/MailOutline";
+import HomeIcon from "@material-ui/icons/Home";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -12,8 +12,9 @@ import SimpleDialog from "../components/SimpleDialog";
 import SigninForm from "../components/SigninForm";
 
 import { UserContext } from "../context/UserContext";
-import Link from "@material-ui/core/Toolbar";
 import { Link as RouterLink } from "react-router-dom";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -38,6 +39,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const homebutton = () => {
+  const theme = useTheme();
+
+  const smallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  if (smallScreen) {
+    return (
+      <IconButton
+        edge="start"
+        color="inherit"
+        aria-label="menu"
+        component={RouterLink}
+        to={"/"}
+      >
+        <HomeIcon />
+      </IconButton>
+    );
+  }
+  return (
+    <Button to="/" color="inherit" component={RouterLink}>
+      Crystal Swap
+    </Button>
+  );
+};
+
 export default function Layout(props) {
   const [open, setOpen] = useState(false);
   const classes = useStyles();
@@ -61,9 +87,7 @@ export default function Layout(props) {
             className={classes.title}
             underline="none"
           >
-            <Button to="/" color="inherit" component={RouterLink}>
-              Crystal Swap
-            </Button>
+            {homebutton()}
           </Typography>
           <UserContext.Consumer>
             {(value) => {
