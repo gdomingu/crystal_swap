@@ -8,7 +8,7 @@ const Request = (props) => {
   return (
     <Grid container>
       <Grid item>
-        <img src={tradeReq.gift.images[0]} style={{ width: "100%" }}></img>
+        <img src={tradeReq.gift.images[0]} style={{ maxHeight: "300px" }}></img>
         <CardContent>
           <Typography variant="h3">{tradeReq.gift.name}</Typography>
           <Typography variant="subtitle1">
