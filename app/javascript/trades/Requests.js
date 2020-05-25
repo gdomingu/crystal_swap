@@ -7,10 +7,6 @@ import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import Avatar from "@material-ui/core/Avatar";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 
 import TradeList from "./TradeList";
 import Request from "./Request";
@@ -51,7 +47,7 @@ const Requests = () => {
   return (
     <Container fixed>
       <Grid container component="main" className={classes.root}>
-        <Grid item xs={4} sm={4}>
+        <Grid item xs={12} sm={4}>
           <Card className={classes.root} variant="outlined">
             <CardContent className={classes.cardHeader}>
               <Typography variant="subtitle1">Trade Requests</Typography>
@@ -65,12 +61,12 @@ const Requests = () => {
         </Grid>
         {tradeReq && (
           <>
-            <Grid item xs={4} sm={4}>
+            <Grid item xs={false} sm={4}>
               <Card className={classes.chatCard} variant="outlined">
                 <Chat tradeReq={tradeReq} />
               </Card>
             </Grid>
-            <Grid item xs={4} sm={4}>
+            <Grid item xs={false} sm={4}>
               <Card className={classes.root} variant="outlined">
                 {tradeReq && <Request tradeReq={tradeReq} />}
               </Card>

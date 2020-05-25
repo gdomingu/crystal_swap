@@ -2,8 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import MessageForm from "./MessageForm";
 import { UserContext } from "../context/UserContext";
 import { makeStyles } from "@material-ui/core/styles";
-import ChatBubble from "../components/ChatBubble";
+import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+
+import ChatBubble from "../components/ChatBubble";
 
 const useStyles = makeStyles((theme) => ({
   chatContainer: {
@@ -30,8 +33,7 @@ const Chat = (props) => {
   const [messages, setMessages] = useState([]);
   const classes = useStyles();
   const bubbleRef = useRef(null);
-  const { tradeReq } = props;
-
+  const { tradeReq, handleBackClick } = props;
   useEffect(() => {
     if (CableApp.room) CableApp.cable.subscriptions.remove(CableApp.room);
     CableApp.room = CableApp.cable.subscriptions.create(
@@ -95,7 +97,18 @@ const Chat = (props) => {
         return (
           <div className={classes.chatContainer}>
             <div className={classes.cardHeader}>
-              <Typography variant="subtitle1">
+              {handleBackClick && (
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  onClick={handleBackClick}
+                  size="small"
+                >
+                  <ChevronLeftIcon />
+                </IconButton>
+              )}
+              <Typography variant="subtitle1" component="span">
                 {chattingWith(user).email}
               </Typography>
             </div>
