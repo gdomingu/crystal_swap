@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Landing from "../landing/Landing";
 import Layout from "../landing/Layout";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
@@ -12,6 +14,7 @@ import Edit from "../gift/Edit";
 import Requests from "../trades/Requests";
 
 import { Redirect } from "react-router-dom";
+import { deepPurple } from "@material-ui/core/colors";
 
 const loginStatus = (setCurrentUser) => {
   axios
@@ -28,6 +31,7 @@ const loginStatus = (setCurrentUser) => {
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   const handleSuccessfulAuth = (user) => {
     console.log("logged in!");
@@ -45,37 +49,51 @@ const App = () => {
       .catch((error) => console.log("api errors:", error));
   };
 
+  const theme = useMemo(
+    () =>
+      createMuiTheme({
+        background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+        palette: {
+          primary: deepPurple,
+          type: prefersDarkMode ? "dark" : "light",
+        },
+      }),
+    [prefersDarkMode]
+  );
+
   useEffect(() => {
     loginStatus(setCurrentUser);
     return () => {};
   }, []);
 
   return (
-    <UserContext.Provider value={currentUser}>
-      <BrowserRouter>
-        <Layout
-          handleLogout={handleLogout}
-          handleSuccessfulAuth={handleSuccessfulAuth}
-        >
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => (
-                <Landing
-                  {...props}
-                  handleSuccessfulAuth={handleSuccessfulAuth}
-                />
-              )}
-            />
-            <Route exact path="/share" component={Share} />
-            <Route exact path="/gifts/:id" component={Show} />
-            <Route exact path="/gifts/:id/edit" component={Edit} />
-            <Route exact path="/requests" component={Requests} />
-          </Switch>
-        </Layout>
-      </BrowserRouter>
-    </UserContext.Provider>
+    <ThemeProvider theme={theme}>
+      <UserContext.Provider value={currentUser}>
+        <BrowserRouter>
+          <Layout
+            handleLogout={handleLogout}
+            handleSuccessfulAuth={handleSuccessfulAuth}
+          >
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={(props) => (
+                  <Landing
+                    {...props}
+                    handleSuccessfulAuth={handleSuccessfulAuth}
+                  />
+                )}
+              />
+              <Route exact path="/share" component={Share} />
+              <Route exact path="/gifts/:id" component={Show} />
+              <Route exact path="/gifts/:id/edit" component={Edit} />
+              <Route exact path="/requests" component={Requests} />
+            </Switch>
+          </Layout>
+        </BrowserRouter>
+      </UserContext.Provider>
+    </ThemeProvider>
   );
 };
 

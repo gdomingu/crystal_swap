@@ -7,7 +7,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import Button from "../components/Button";
 import SimpleDialog from "../components/SimpleDialog";
 import SigninForm from "../components/SigninForm";
 
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     marginBottom: theme.spacing(3),
+    background: theme.background,
   },
   menuButton: {
     marginRight: theme.spacing(2),
