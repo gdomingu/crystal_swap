@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Button from "@material-ui/core/Button";
+import Button from "../components/Button";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
@@ -52,7 +52,7 @@ const HomeGrid = () => {
                   <Button
                     component={Link}
                     size="small"
-                    color="primary"
+                    color="inherit"
                     to={`/gifts/${gift.id}`}
                   >
                     View
@@ -62,11 +62,9 @@ const HomeGrid = () => {
                       if (value && value.id == gift.gift_from.id) {
                         return (
                           <Button
-                            size="small"
-                            color="primary"
                             component={Link}
                             size="small"
-                            color="primary"
+                            color="inherit"
                             to={`/gifts/${gift.id}/edit`}
                           >
                             Edit

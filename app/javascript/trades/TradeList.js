@@ -7,6 +7,9 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
 import { formatDistance } from "date-fns";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +26,17 @@ const formatDate = (date) => {
 
 const TradeList = (props) => {
   const classes = useStyles();
-  const { tradeReqs, handleClick, selectedReq } = props;
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  let history = useHistory();
+
+  const handleClick = (id) => {
+    if (smallScreen) {
+      return history.push(`/direct/${id}`);
+    }
+    return props.handleClick(id);
+  };
+  const { tradeReqs, selectedReq } = props;
   return (
     <div className={classes.root}>
       <List>

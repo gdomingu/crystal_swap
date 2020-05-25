@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import LoginSignup from "./LoginSignup";
 import { UserContext } from "../context/UserContext";
-import Button from "@material-ui/core/Button";
+import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 

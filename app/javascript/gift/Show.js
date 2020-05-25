@@ -12,24 +12,19 @@ import Container from "@material-ui/core/Container";
 import TradeRequestForm from "../trades/TradeRequestForm";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "80vh",
-  },
-  image: {
-    backgroundImage: (props) => `url(${props.url})`,
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  },
   paper: {
     margin: theme.spacing(8, 4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+  },
+  image: {
+    [theme.breakpoints.up("sm")]: {
+      maxWidth: "50%",
+    },
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "100%",
+    },
   },
   details: {
     marginBottom: theme.spacing(3),
@@ -38,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Show = () => {
   const [gift, setGift] = useState();
-  const classes = useStyles({ url: gift && gift.images[0] });
+  const classes = useStyles();
 
   let { id } = useParams();
   useEffect(() => {
@@ -52,12 +47,12 @@ const Show = () => {
     return <Spinner />;
   }
   return (
-    <Container fixed>
+    <Container>
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} component={Paper} square>
+        <Grid item component={Paper} square>
           <div className={classes.paper}>
+            <img src={gift && gift.images[0]} className={classes.image} />
             <div className={classes.details}>
               <Typography gutterBottom variant="h3" component="h3">
                 {gift.name}
