@@ -93,7 +93,11 @@ const Show = () => {
                       }}
                       title="Login"
                     >
-                      <SigninForm handleSuccessfulAuth={() => {}} />
+                      <SigninForm
+                        handleSuccessfulAuth={() => {
+                          setOpenModal(false);
+                        }}
+                      />
                     </SimpleDialog>
                   </>
                 );
