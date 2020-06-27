@@ -47,7 +47,6 @@ const homebutton = () => {
   if (smallScreen) {
     return (
       <IconButton
-        edge="start"
         color="inherit"
         aria-label="menu"
         component={RouterLink}
