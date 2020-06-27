@@ -17,11 +17,19 @@ const LoginSignup = (props) => {
     setOpen(false);
   };
 
-  const dialogContent = () => {
+  const dialog = () => {
     if (dialogType == "login") {
-      return <SigninForm handleSuccessfulAuth={props.handleSuccessfulAuth} />;
+      return (
+        <SimpleDialog open={open} onClose={handleClose} title="Login">
+          <SigninForm handleSuccessfulAuth={props.handleSuccessfulAuth} />
+        </SimpleDialog>
+      );
     }
-    return <SignupForm handleSuccessfulAuth={props.handleSuccessfulAuth} />;
+    return (
+      <SimpleDialog open={open} onClose={handleClose} title="Create Account">
+        <SignupForm handleSuccessfulAuth={props.handleSuccessfulAuth} />
+      </SimpleDialog>
+    );
   };
 
   return (
@@ -43,9 +51,7 @@ const LoginSignup = (props) => {
         >
           Sign Up
         </Button>
-        <SimpleDialog open={open} onClose={handleClose} title="Create Account">
-          {dialogContent()}
-        </SimpleDialog>
+        {dialog()}
       </Grid>
     </Grid>
   );

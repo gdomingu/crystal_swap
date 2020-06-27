@@ -82,6 +82,7 @@ const SigninForm = (props) => {
         error={formik.touched.email && Boolean(formik.errors.email)}
         value={formik.values.email}
         onChange={change.bind(null, "email")}
+        autoComplete="email"
       />
       <TextField
         id="password"
@@ -94,6 +95,7 @@ const SigninForm = (props) => {
         value={formik.values.password}
         onChange={change.bind(null, "password")}
         variant="outlined"
+        autoComplete="current-password"
       />
       <Button
         variant="contained"
