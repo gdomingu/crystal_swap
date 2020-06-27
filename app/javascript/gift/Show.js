@@ -9,7 +9,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Spinner from "../components/Spinner";
 import Container from "@material-ui/core/Container";
+import Link from "@material-ui/core/Link";
 import TradeRequestForm from "../trades/TradeRequestForm";
+import { UserContext } from "../context/UserContext";
+import SimpleDialog from "../components/SimpleDialog";
+import SigninForm from "../components/SigninForm";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const Show = () => {
   const [gift, setGift] = useState();
   const classes = useStyles();
+  const [openModal, setOpenModal] = useState(false);
 
   let { id } = useParams();
   useEffect(() => {
@@ -46,6 +51,10 @@ const Show = () => {
   if (!gift) {
     return <Spinner />;
   }
+  const handleClick = (e) => {
+    e.preventDefault();
+    setOpenModal(true);
+  };
   return (
     <Container>
       <Grid container component="main" className={classes.root}>
@@ -64,7 +73,32 @@ const Show = () => {
                 Gifted by: {gift.gift_from.email}
               </Typography>
             </div>
-            <TradeRequestForm gift_id={id}></TradeRequestForm>
+            <UserContext.Consumer>
+              {(value) => {
+                if (value) {
+                  return <TradeRequestForm gift_id={id}></TradeRequestForm>;
+                }
+                return (
+                  <>
+                    <span>
+                      <Link href="#" onClick={handleClick}>
+                        Login
+                      </Link>
+                      {" to request a trade"}
+                    </span>
+                    <SimpleDialog
+                      open={openModal}
+                      onClose={() => {
+                        setOpenModal(false);
+                      }}
+                      title="Login"
+                    >
+                      <SigninForm handleSuccessfulAuth={() => {}} />
+                    </SimpleDialog>
+                  </>
+                );
+              }}
+            </UserContext.Consumer>
           </div>
         </Grid>
       </Grid>
