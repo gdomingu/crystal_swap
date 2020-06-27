@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "../components/Button";
@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import AxiosHelper from "../utils/AxiosHelper";
 import { useFormik } from "formik";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ const validationSchema = Yup.object({
 
 const SigninForm = (props) => {
   const classes = useStyles();
-
+  const [error, setError] = useState();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -44,6 +45,10 @@ const SigninForm = (props) => {
           props.handleSuccessfulAuth(resp.data);
         })
         .catch((err) => {
+          if (err.response.data.error) {
+            setError(err.response.data.error);
+            return;
+          }
           if (err.response.data.errors["email"]) {
             actions.setFieldTouched("email", true, false);
             actions.setFieldError(
@@ -72,6 +77,7 @@ const SigninForm = (props) => {
       autoComplete="off"
       onSubmit={formik.handleSubmit}
     >
+      {error && <Alert severity="error">{error}</Alert>}
       <TextField
         id="email"
         label="email"
