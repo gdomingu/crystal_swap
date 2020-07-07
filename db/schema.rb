@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_17_024652) do
+ActiveRecord::Schema.define(version: 2020_07_07_033616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2020_05_17_024652) do
     t.boolean "private", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "given_at"
     t.index ["gifter_id"], name: "index_gifts_on_gifter_id"
     t.index ["receiver_id"], name: "index_gifts_on_receiver_id"
   end

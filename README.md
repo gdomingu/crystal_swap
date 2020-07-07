@@ -20,6 +20,7 @@ React
 * Database initialization
 
 * How to run the test suite
+`rails test`
 
 * Services (job queues, cache servers, search engines, etc.)
 

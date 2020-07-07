@@ -7,14 +7,28 @@ module Services
     attr_accessor :gift_params, :gift
 
     def call
-      published = gift_params.delete(:published)
-      if ActiveRecord::Type::Boolean.new.cast(published)
-        gift_params.merge!(published_at: Time.current)
-      else
-        gift_params.merge!(published_at: nil)
-      end
-      gift.update(gift_params)
+      gift.update(sanitized_gift_params)
       gift
+    end
+
+    private
+
+    def sanitized_gift_params
+      new_gift_params = gift_params.dup
+      [[:published, :published_at], [:given, :given_at]].each do |p_key, attr|
+        toggle_attr(p_key, attr, new_gift_params)
+      end
+      new_gift_params
+    end
+
+    def toggle_attr(param_key, field, params)
+      val = ActiveRecord::Type::Boolean.new.cast(params.delete(param_key))
+      return if val.nil?
+      if val
+        params.merge!(field => Time.current)
+      else
+        params.merge!(field => nil)
+      end
     end
   end
 
