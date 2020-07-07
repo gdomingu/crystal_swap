@@ -36,7 +36,7 @@ module Api
     private
 
     def gift_params
-      params.require(:gift).permit(:name, :description, :published, images: [])
+      params.require(:gift).permit(:name, :description, :published, :given, images: [])
     end
 
     def load_gift

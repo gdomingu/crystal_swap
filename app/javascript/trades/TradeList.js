@@ -27,11 +27,11 @@ const formatDate = (date) => {
 const TradeList = (props) => {
   const classes = useStyles();
   const theme = useTheme();
-  const smallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const xsmallScreen = useMediaQuery(theme.breakpoints.down("xs"));
   let history = useHistory();
 
   const handleClick = (id) => {
-    if (smallScreen) {
+    if (xsmallScreen) {
       return history.push(`/direct/${id}`);
     }
     return props.handleClick(id);

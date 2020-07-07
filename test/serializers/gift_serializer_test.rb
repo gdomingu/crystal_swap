@@ -13,6 +13,7 @@ class GiftSerializerTest < ActiveSupport::TestCase
       },
       images: [],
       published: true,
+      given_at: "Apr 29 22:50",
     }
     assert_equal(expected, Serializers::GiftSerializer.new(gift).to_h)
   end

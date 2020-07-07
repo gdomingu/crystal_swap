@@ -61,12 +61,12 @@ const Requests = () => {
         </Grid>
         {tradeReq && (
           <>
-            <Grid item xs={false} sm={4}>
+            <Grid item xs={false} sm={4} md={4}>
               <Card className={classes.chatCard} variant="outlined">
                 <Chat tradeReq={tradeReq} />
               </Card>
             </Grid>
-            <Grid item xs={false} sm={4}>
+            <Grid item xs={false} sm={4} md={4}>
               <Card className={classes.root} variant="outlined">
                 {tradeReq && <Request tradeReq={tradeReq} />}
               </Card>

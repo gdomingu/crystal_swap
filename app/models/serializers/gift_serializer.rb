@@ -17,6 +17,7 @@ include Rails.application.routes.url_helpers
           email: gift.gifter.email,
         },
         published: gift.published_at.present?,
+        given_at: gift.given_at&.strftime("%b %d %H:%M %z"),
       }
     end
 
