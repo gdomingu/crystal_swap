@@ -1,7 +1,13 @@
 # README
+First time set up:
 ```
 bundle install
 yarn install
+bundle exec rake db:create db:migrate db:test:prepare
+```
+
+Starting server:
+```
 bundle exec rails s
 ```
 In a new tab:
