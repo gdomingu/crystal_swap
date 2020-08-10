@@ -37,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     textAlign: "center",
   },
+  link: {
+    textDecoration: "none",
+    color: "white",
+  }
 }));
 
 const homebutton = () => {
@@ -119,7 +123,9 @@ export default function Layout(props) {
                   >
                     <MailIcon />
                   </IconButton>
-                  <span>{value.email}</span>
+                  <RouterLink className={classes.link} to="/profile">
+                    {value.email}
+                  </RouterLink>
                   <Button color="inherit" onClick={props.handleLogout}>
                     Logout
                   </Button>

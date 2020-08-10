@@ -13,6 +13,7 @@ import Show from "../gift/Show";
 import Edit from "../gift/Edit";
 import Requests from "../trades/Requests";
 import Direct from "../trades/Direct";
+import Profile from "../components/Profile";
 
 import { Redirect } from "react-router-dom";
 import { deepPurple } from "@material-ui/core/colors";
@@ -91,6 +92,7 @@ const App = () => {
               <Route exact path="/gifts/:id/edit" component={Edit} />
               <Route exact path="/requests" component={Requests} />
               <Route exact path="/direct/:id" component={Direct} />
+              <Route exact path="/profile" component={Profile} />
             </Switch>
           </Layout>
         </BrowserRouter>
