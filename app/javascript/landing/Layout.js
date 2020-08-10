@@ -15,6 +15,7 @@ import { UserContext } from "../context/UserContext";
 import { Link as RouterLink } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
+import { nominalTypeHack } from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -37,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     textAlign: "center",
   },
+  link: {
+    textDecoration: "none",
+    color: "white",
+  }
 }));
 
 const homebutton = () => {
@@ -62,6 +67,9 @@ const homebutton = () => {
     </Button>
   );
 };
+
+
+
 
 export default function Layout(props) {
   const [open, setOpen] = useState(false);
@@ -119,7 +127,9 @@ export default function Layout(props) {
                   >
                     <MailIcon />
                   </IconButton>
-                  <span>{value.email}</span>
+                  <RouterLink className={classes.link} to="/profile">
+                    {value.email}
+                  </RouterLink>
                   <Button color="inherit" onClick={props.handleLogout}>
                     Logout
                   </Button>
