@@ -15,7 +15,6 @@ import { UserContext } from "../context/UserContext";
 import { Link as RouterLink } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-import { nominalTypeHack } from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -67,9 +66,6 @@ const homebutton = () => {
     </Button>
   );
 };
-
-
-
 
 export default function Layout(props) {
   const [open, setOpen] = useState(false);
