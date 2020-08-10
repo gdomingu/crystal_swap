@@ -1,6 +1,7 @@
 # README
 First time set up:
-Clone the repo.
+
+Clone the repo. Then:
 ```
 bundle install
 yarn install
