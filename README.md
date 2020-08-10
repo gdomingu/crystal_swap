@@ -1,7 +1,10 @@
 # README
-`bundle install`
-`yarn install` when you first checkout the project
-`bundle exec rails s`
+```
+bundle install
+yarn install
+bundle exec rails s
+```
+In a new tab:
 `bin/webpack-dev-server` for live reloading of react files.
 
 * Ruby version
