@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SimpleDialog from "../components/SimpleDialog";
 import Grid from "@material-ui/core/Grid";
 import SignupForm from "../components/SignupForm";
 import SigninForm from "../components/SigninForm";
 import Button from "@material-ui/core/Button";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Auth from "../components/Auth";
+import { connect } from "react-redux";
 
 const LoginSignup = (props) => {
   const [open, setOpen] = useState(false);
@@ -16,22 +20,10 @@ const LoginSignup = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const dialog = () => {
-    if (dialogType == "login") {
-      return (
-        <SimpleDialog open={open} onClose={handleClose} title="Login">
-          <SigninForm handleSuccessfulAuth={props.handleSuccessfulAuth} />
-        </SimpleDialog>
-      );
-    }
-    return (
-      <SimpleDialog open={open} onClose={handleClose} title="Create Account">
-        <SignupForm handleSuccessfulAuth={props.handleSuccessfulAuth} />
-      </SimpleDialog>
-    );
-  };
-
+  useEffect(() => {
+    console.log(props);
+    setOpen(!!props.modalOpen);
+  }, [props]);
   return (
     <Grid container spacing={2} justify="center">
       <Grid item>
@@ -51,10 +43,15 @@ const LoginSignup = (props) => {
         >
           Sign Up
         </Button>
-        {dialog()}
+        <SimpleDialog open={open} onClose={handleClose}>
+          <Auth dialogType={dialogType} />;
+        </SimpleDialog>
       </Grid>
     </Grid>
   );
 };
+const mapStateToProps = (state) => {
+  return state.current_user;
+};
 
-export default LoginSignup;
+export default connect(mapStateToProps)(LoginSignup);

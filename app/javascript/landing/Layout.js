@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "../components/Button";
 import SimpleDialog from "../components/SimpleDialog";
 import SigninForm from "../components/SigninForm";
-
+import Auth from "../components/Auth";
 import { UserContext } from "../context/UserContext";
 import { Link as RouterLink } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: "none",
     color: "white",
-  }
+  },
 }));
 
 const homebutton = () => {
@@ -75,14 +75,6 @@ export default function Layout(props) {
       <CssBaseline />
       <AppBar position="relative" className={classes.root}>
         <Toolbar>
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton> */}
           <Typography
             variant="h6"
             color="inherit"
@@ -97,15 +89,6 @@ export default function Layout(props) {
               if (value === null) {
                 return (
                   <>
-                    <SimpleDialog
-                      open={open}
-                      onClose={() => setOpen(false)}
-                      title="Sign in"
-                    >
-                      <SigninForm
-                        handleSuccessfulAuth={props.handleSuccessfulAuth}
-                      ></SigninForm>
-                    </SimpleDialog>
                     <Button color="inherit" onClick={() => setOpen(true)}>
                       Login
                     </Button>
@@ -133,6 +116,9 @@ export default function Layout(props) {
               );
             }}
           </UserContext.Consumer>
+          <SimpleDialog open={open} onClose={() => setOpen(false)}>
+            <Auth />
+          </SimpleDialog>
         </Toolbar>
       </AppBar>
       <main>{props.children}</main>
