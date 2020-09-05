@@ -6,6 +6,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import actionCable from 'actioncable';
+import { Provider } from "react-redux";
+import rootReducer from "./reducers/root";
+import { createStore } from "redux";
+// import { I18nextProvider } from "react-i18next";
+const store = createStore(rootReducer);
 
 (function() {
   window.CableApp || (window.CableApp = {});
@@ -14,7 +19,9 @@ import actionCable from 'actioncable';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <App />,
+    <Provider store={store}>
+      <App />
+    </Provider>,
     document.body.appendChild(document.createElement('div')),
   )
 })

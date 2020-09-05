@@ -7,6 +7,7 @@ import axios from "axios";
 import AxiosHelper from "../utils/AxiosHelper";
 import { useFormik } from "formik";
 import Alert from "@material-ui/lab/Alert";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,8 @@ const validationSchema = Yup.object({
 });
 
 const SigninForm = (props) => {
+  const { dispatch } = props;
+
   const classes = useStyles();
   const [error, setError] = useState();
   const formik = useFormik({
@@ -41,10 +44,11 @@ const SigninForm = (props) => {
       axios
         .post("/users/sign_in", { user: values })
         .then((resp) => {
-          console.log(resp);
-          props.handleSuccessfulAuth(resp.data);
+          let action = { type: "LOGGED_IN", user: resp.data };
+          dispatch(action);
         })
         .catch((err) => {
+          console.log(err);
           if (err.response.data.error) {
             setError(err.response.data.error);
             return;
@@ -115,4 +119,4 @@ const SigninForm = (props) => {
   );
 };
 
-export default SigninForm;
+export default connect()(SigninForm);
