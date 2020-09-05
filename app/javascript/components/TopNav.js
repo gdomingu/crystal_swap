@@ -13,6 +13,8 @@ import { Link as RouterLink } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import { connect } from "react-redux";
+import AxiosHelper from "../utils/AxiosHelper";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -58,14 +60,22 @@ const homebutton = () => {
   );
 };
 
-const handleLogout = () => {};
-
 const TopNav = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   useEffect(() => {
     setOpen(!!props.modalOpen);
   }, [props]);
+
+  const handleLogout = () => {
+    AxiosHelper();
+    axios.delete("/users/sign_out").then((resp) => {
+      document.querySelector("[name=csrf-token]").content =
+        resp.headers["x-csrf-token"];
+      props.dispatch({ type: "LOGGED_OUT" });
+    });
+  };
+
   const button = () => {
     if (props.currentUser) {
       return (
