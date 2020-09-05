@@ -17,24 +17,25 @@ import Profile from "../components/Profile";
 
 import { Redirect } from "react-router-dom";
 import { deepPurple } from "@material-ui/core/colors";
+import { connect } from "react-redux";
 
-const loginStatus = (setCurrentUser) => {
-  axios
-    .get("/signed_in")
-    .then((response) => {
-      if (response.data.user) {
-        setCurrentUser(response.data.user);
-      } else {
-        setCurrentUser(null);
-      }
-    })
-    .catch((error) => console.log("api errors:", error));
-};
-
-const App = () => {
+const App = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const { dispatch } = props;
 
+  const loginStatus = () => {
+    axios
+      .get("/signed_in")
+      .then((response) => {
+        if (response.data.user) {
+          let action = { type: "LOGGED_IN", user: response.data.user };
+          dispatch(action);
+        } else {
+        }
+      })
+      .catch((error) => console.log("api errors:", error));
+  };
   const handleSuccessfulAuth = (user) => {
     console.log("logged in!");
     setCurrentUser(user);
@@ -64,7 +65,7 @@ const App = () => {
   );
 
   useEffect(() => {
-    loginStatus(setCurrentUser);
+    loginStatus();
     return () => {};
   }, []);
 
@@ -101,4 +102,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default connect()(App);
