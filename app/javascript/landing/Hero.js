@@ -23,6 +23,7 @@ const Hero = (props) => {
   return (
     <div className={classes.heroContent}>
       <Container maxWidth="sm">
+      
         <Typography
           component="h1"
           variant="h2"
@@ -30,7 +31,10 @@ const Hero = (props) => {
           color="textPrimary"
           gutterBottom
         >
-          Crystal Swap
+          <span style={{position: "relative"}}>
+            Crystal Swap
+            <img width="40px" style={{position: "absolute", }} src="https://media.discordapp.net/attachments/526567429363597345/753846949735694436/beta-logo-png-8.png"/>
+          </span>
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
           Find a new home for your beloved crystals
