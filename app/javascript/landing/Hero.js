@@ -16,6 +16,14 @@ const useStyles = makeStyles((theme) => ({
   heroButtons: {
     marginTop: theme.spacing(4),
   },
+  betaSpan: {
+    position: "relative",
+  },
+  betaImg: {
+    width: "40px",
+    position: theme.absolute,
+    bottom: 0,
+  },
 }));
 
 const Hero = (props) => {
@@ -23,7 +31,6 @@ const Hero = (props) => {
   return (
     <div className={classes.heroContent}>
       <Container maxWidth="sm">
-      
         <Typography
           component="h1"
           variant="h2"
@@ -31,9 +38,12 @@ const Hero = (props) => {
           color="textPrimary"
           gutterBottom
         >
-          <span style={{position: "relative"}}>
+          <span className={classes.betaSpan}>
             Crystal Swap
-            <img width="40px" style={{position: "absolute", }} src="https://media.discordapp.net/attachments/526567429363597345/753846949735694436/beta-logo-png-8.png"/>
+            <img
+              className={classes.betaImg}
+              src="https://media.discordapp.net/attachments/526567429363597345/753846949735694436/beta-logo-png-8.png"
+            />
           </span>
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
