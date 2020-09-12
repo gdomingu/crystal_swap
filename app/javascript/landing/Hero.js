@@ -16,6 +16,14 @@ const useStyles = makeStyles((theme) => ({
   heroButtons: {
     marginTop: theme.spacing(4),
   },
+  betaSpan: {
+    position: "relative",
+  },
+  betaImg: {
+    width: "40px",
+    position: theme.absolute,
+    bottom: 0,
+  },
 }));
 
 const Hero = (props) => {
@@ -30,7 +38,13 @@ const Hero = (props) => {
           color="textPrimary"
           gutterBottom
         >
-          Crystal Swap
+          <span className={classes.betaSpan}>
+            Crystal Swap
+            <img
+              className={classes.betaImg}
+              src="https://media.discordapp.net/attachments/526567429363597345/753846949735694436/beta-logo-png-8.png"
+            />
+          </span>
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
           Find a new home for your beloved crystals
